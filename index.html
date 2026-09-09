@@ -1,79 +1,179 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IBKR 投资组合仪表盘</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-  <style>
-    :root { --bg:#0b1020; --bg2:#121933; --card:#161e3a; --card2:#1c2648; --line:rgba(255,255,255,.08); --text:#e8edf8; --muted:#93a0c2; --green:#3ddc97; --red:#ff6b7a; }
-    * { box-sizing:border-box; } html,body{margin:0;background:var(--bg);color:var(--text);font-family:PingFang SC,Noto Sans SC,Inter,sans-serif;}
-    .wrap{max-width:1280px;margin:0 auto;padding:28px 22px 60px;}
-    header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px;}
-    h1{font-size:26px;margin:0 0 4px;} .sub{color:var(--muted);font-size:13px;}
-    .badges{display:flex;gap:8px;flex-wrap:wrap;}
-    .badge{background:rgba(61,220,151,.12);color:var(--green);border:1px solid rgba(61,220,151,.25);padding:4px 10px;border-radius:999px;font-size:12px;}
-    .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:18px;}
-    .kpi{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:14px;}
-    .kpi .l{color:var(--muted);font-size:12px;margin-bottom:6px;} .kpi .v{font-size:20px;font-weight:650;} .kpi .s{font-size:12px;margin-top:4px;color:var(--muted);}
-    .up{color:var(--green);} .dn{color:var(--red);}
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
-    .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;} .card h2{margin:0 0 12px;font-size:15px;color:#cdd6f0;}
-    .chart-box{position:relative;height:250px;}
-    table{width:100%;border-collapse:collapse;font-size:13px;} th{text-align:left;color:var(--muted);font-size:11px;padding:8px;border-bottom:1px solid var(--line);} td{padding:8px;border-bottom:1px solid rgba(255,255,255,.04);} .r{text-align:right;font-variant-numeric:tabular-nums;}
-    .bar{height:6px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;min-width:70px;} .bar>i{display:block;height:100%;background:linear-gradient(90deg,#5b8cff,#44d7e8);}
-    .note{color:var(--muted);font-size:12.5px;line-height:1.65;} .pills{display:flex;flex-wrap:wrap;gap:8px;} .pill{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:12px;} .pill b{display:block;font-size:14px;margin-top:2px;}
-    .tag{display:inline-block;font-size:10px;padding:2px 6px;border-radius:6px;background:rgba(91,140,255,.15);color:#9bbcff;} .tag.etf{background:rgba(68,215,232,.15);color:#8ae7f2;}
-    footer{margin-top:18px;color:var(--muted);font-size:11px;}
-    @media (max-width:1100px){.kpis,.grid3,.grid2{grid-template-columns:1fr;}.kpis{grid-template-columns:1fr 1fr;}}
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>IBKR 投资组合仪表盘</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0b1020;--bg2:#121933;--card:#161e3a;--card2:#1c2648;--line:rgba(255,255,255,.08);--text:#e8edf8;--muted:#93a0c2;--green:#3ddc97;--red:#ff6b7a}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:PingFang SC,Noto Sans SC,Inter,sans-serif}
+.wrap{max-width:1280px;margin:0 auto;padding:28px 22px 60px}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+h1{font-size:26px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px}
+.badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{background:rgba(61,220,151,.12);color:var(--green);border:1px solid rgba(61,220,151,.25);padding:4px 10px;border-radius:999px;font-size:12px}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:18px}
+.kpi{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:14px}
+.kpi .l{color:var(--muted);font-size:12px;margin-bottom:6px}.kpi .v{font-size:20px;font-weight:650}.kpi .s{font-size:12px;margin-top:4px;color:var(--muted)}
+.up{color:var(--green)}.dn{color:var(--red)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}.card h2{margin:0 0 12px;font-size:15px;color:#cdd6f0}
+.chart-box{position:relative;height:250px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--muted);font-size:11px;padding:8px;border-bottom:1px solid var(--line)}
+td{padding:8px;border-bottom:1px solid rgba(255,255,255,.04)}
+.r{text-align:right;font-variant-numeric:tabular-nums}
+.bar{height:6px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;min-width:70px}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,#5b8cff,#44d7e8)}
+.note{color:var(--muted);font-size:12.5px;line-height:1.65}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:12px}
+.pill b{display:block;font-size:14px;margin-top:2px}
+.tag{display:inline-block;font-size:10px;padding:2px 6px;border-radius:6px;background:rgba(91,140,255,.15);color:#9bbcff}
+.tag.etf{background:rgba(68,215,232,.15);color:#8ae7f2}
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+select{background:var(--card2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer}
+th.sort{cursor:pointer} th.sort.active{color:#8ae7f2}
+.soon{color:#ff9f43;font-weight:650}
+footer{margin-top:18px;color:var(--muted);font-size:11px}
+@media(max-width:1100px){.kpis,.grid3,.grid2{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div><h1>投资组合仪表盘</h1><div class="sub">Interactive Brokers · USD · 2026-09-09 13:25 CEST · 期权Δ 为 BS 估算</div></div>
-      <div class="badges"><div class="badge">杠杆 1.20x</div><div class="badge">组合 Δ ≈ 1.10× NAV</div></div>
-    </header>
-    <section class="kpis">
-      <div class="kpi"><div class="l">净资产 NAV</div><div class="v">$838,006</div><div class="s">毛头寸 $1,002,644</div></div>
-      <div class="kpi"><div class="l">股票 Δ $</div><div class="v">$864k</div><div class="s">1.03× NAV</div></div>
-      <div class="kpi"><div class="l">期权 Δ $</div><div class="v up">+$53k</div><div class="s">空 put 增多 / 空 call 减多</div></div>
-      <div class="kpi"><div class="l">组合 Δ $</div><div class="v">$917k</div><div class="s">≈ 1.10× NAV</div></div>
-      <div class="kpi"><div class="l">YTD / 1Y</div><div class="v up">+42.6% / +58.5%</div><div class="s">TWR</div></div>
-      <div class="kpi"><div class="l">期权净市值</div><div class="v">−$56,381</div><div class="s">权利金市值，不是Δ</div></div>
-    </section>
-    <section class="grid2">
-      <div class="card"><h2>资产类别（多头）</h2><div class="chart-box"><canvas id="assetClass"></canvas></div></div>
-      <div class="card"><h2>金融工具</h2><div class="chart-box"><canvas id="instrument"></canvas></div></div>
-    </section>
-    <section class="card" style="margin-bottom:14px">
-      <h2>股票 / ETF</h2>
-      <div style="overflow-x:auto"><table><thead><tr>
-        <th>标的</th><th>类型</th><th class="r">数量</th><th class="r">现价</th><th class="r">市值=Δ$</th><th class="r">占 NAV</th><th></th><th class="r">未实现</th><th class="r">当日</th>
-      </tr></thead><tbody id="stkBody"></tbody></table></div>
-    </section>
-    <section class="grid2">
-      <div class="card"><h2>债券（不计股价 Δ）</h2><table>
-        <tr><td>RABOBK 6.5% Perp</td><td class="r">€67,109 ≈ $78k</td></tr>
-      </table></div>
-      <div class="card"><h2>Δ 说明</h2>
-        <p class="note">1.20x 是 Gross/NAV。1.10x 是股票市值 + BS 估算的期权美元Δ。IBKR 接口不提供实时希腊值，误差约 ±0.05x。</p>
-      </div>
-    </section>
-    <footer>menglin-xia/ibkr-alloc-dash</footer>
+<div class="wrap">
+<header>
+  <div>
+    <h1>投资组合仪表盘</h1>
+    <div class="sub">Interactive Brokers · USD · 2026-09-09 13:31 CEST · 期权Δ 为 BS 估算</div>
   </div>
-  <script>
-    const NAV=838006.25;
-    const stocks=[{"s":"META","t":"股票","q":225,"px":639.38,"mv":143860.5,"upnl":3203,"d":5828},{"s":"QQQ","t":"ETF","q":162,"px":715.02,"mv":115833,"upnl":34048,"d":-541},{"s":"VOO","t":"ETF","q":146.38,"px":701.59,"mv":102696,"upnl":32384,"d":-363},{"s":"RKLB","t":"股票","q":1200,"px":67.63,"mv":81156,"upnl":-7345,"d":2112},{"s":"GOOG","t":"股票","q":200,"px":331.31,"mv":66262,"upnl":5102,"d":-814},{"s":"SMH","t":"ETF","q":100,"px":567.9,"mv":56790,"upnl":29340,"d":-583},{"s":"ECHO","t":"股票","q":550,"px":93.12,"mv":51216,"upnl":-17571,"d":-165},{"s":"MSFT","t":"股票","q":100,"px":493.69,"mv":49369,"upnl":10770,"d":-26},{"s":"LITE","t":"股票","q":40,"px":963,"mv":38520,"upnl":1578,"d":-621},{"s":"TSLA","t":"股票","q":100,"px":364.79,"mv":36479,"upnl":5232,"d":-337},{"s":"DRAM","t":"股票","q":560,"px":60.49,"mv":33874,"upnl":-4227,"d":-342},{"s":"CRCL","t":"股票","q":300,"px":96.5,"mv":28950,"upnl":6150,"d":96},{"s":"NVDA","t":"股票","q":111,"px":224.6,"mv":24931,"upnl":818,"d":-125},{"s":"SE","t":"股票","q":200,"px":111.56,"mv":22312,"upnl":-4355,"d":-354},{"s":"TSEM","t":"股票","q":50,"px":219.91,"mv":10996,"upnl":-1356,"d":5},{"s":"MU","t":"股票","q":1,"px":994.97,"mv":995,"upnl":57,"d":-5}];
-    const fmt2=n=>n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-    const money=n=>(n<0?'\u2212$':'$')+fmt2(Math.abs(n));
-    const cls=n=>n>0.5?'up':n<-0.5?'dn':'';
-    const tb=document.getElementById('stkBody'), maxW=stocks[0].mv/NAV;
-    stocks.forEach(x=>{const w=x.mv/NAV;tb.insertAdjacentHTML('beforeend',`<tr><td><b>${x.s}</b></td><td><span class="tag ${x.t==='ETF'?'etf':''}">${x.t}</span></td><td class="r">${x.q}</td><td class="r">${fmt2(x.px)}</td><td class="r">$${fmt2(x.mv)}</td><td class="r">${(w*100).toFixed(1)}%</td><td><div class="bar"><i style="width:${(w/maxW*100).toFixed(1)}%"></i></div></td><td class="r ${cls(x.upnl)}">${money(x.upnl)}</td><td class="r ${cls(x.d)}">${money(x.d)}</td></tr>`);});
-    const colors=['#5b8cff','#44d7e8','#f5c542','#b388ff','#ff9f43','#3ddc97'];
-    const donut=(id,labels,data)=>new Chart(document.getElementById(id),{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:colors,borderColor:'#161e3a',borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{color:'#cdd6f0',boxWidth:12}}},cutout:'58%'}});
-    donut('assetClass',['权益','固定收益','现金'],[868500,78138,914]);
-    donut('instrument',['个股','ETF','债券','期权净空'],[556149,311427,78138,56381]);
-  </script>
+  <div class="badges">
+    <div class="badge">杠杆 1.20x</div>
+    <div class="badge">组合 Δ ≈ 1.10× NAV</div>
+  </div>
+</header>
+<section class="kpis">
+  <div class="kpi"><div class="l">净资产 NAV</div><div class="v">$838,006</div><div class="s">毛头寸 $1,002,644</div></div>
+  <div class="kpi"><div class="l">股票 Δ $</div><div class="v">$864k</div><div class="s">1.03× NAV</div></div>
+  <div class="kpi"><div class="l">期权 Δ $</div><div class="v up">+$53k</div><div class="s">空 put 增多 / 空 call 减多</div></div>
+  <div class="kpi"><div class="l">组合 Δ $</div><div class="v">$917k</div><div class="s">≈ 1.10× NAV</div></div>
+  <div class="kpi"><div class="l">YTD / 1Y</div><div class="v up">+42.6% / +58.5%</div><div class="s">TWR</div></div>
+  <div class="kpi"><div class="l">期权净市值</div><div class="v">−$56,381</div><div class="s">权利金，不是 Δ</div></div>
+</section>
+<section class="grid2">
+  <div class="card"><h2>资产类别（多头）</h2><div class="chart-box"><canvas id="assetClass"></canvas></div></div>
+  <div class="card"><h2>金融工具</h2><div class="chart-box"><canvas id="instrument"></canvas></div></div>
+</section>
+<section class="grid3">
+  <div class="card"><h2>行业</h2><div class="chart-box"><canvas id="sector"></canvas></div></div>
+  <div class="card"><h2>地区</h2><div class="chart-box"><canvas id="region"></canvas></div></div>
+  <div class="card"><h2>国家</h2><div class="chart-box"><canvas id="country"></canvas></div></div>
+</section>
+<section class="card" style="margin-bottom:14px">
+  <h2>近期收益 TWR</h2>
+  <div class="pills" style="margin-bottom:12px">
+    <div class="pill">1D<b class="up">+0.97%</b></div>
+    <div class="pill">7D<b class="up">+5.91%</b></div>
+    <div class="pill">MTD<b class="up">+5.75%</b></div>
+    <div class="pill">1M<b class="up">+9.59%</b></div>
+    <div class="pill">YTD<b class="up">+42.57%</b></div>
+    <div class="pill">1Y<b class="up">+58.48%</b></div>
+  </div>
+  <div class="chart-box" style="height:220px"><canvas id="navChart"></canvas></div>
+</section>
+<section class="card" style="margin-bottom:14px">
+  <h2>股票 / ETF</h2>
+  <div style="overflow-x:auto"><table>
+    <thead><tr>
+      <th>标的</th><th>类型</th><th class="r">数量</th><th class="r">现价</th><th class="r">市值</th><th class="r">占 NAV</th><th></th><th class="r">未实现</th><th class="r">当日</th>
+    </tr></thead>
+    <tbody id="stkBody"></tbody>
+  </table></div>
+</section>
+<section class="card" style="margin-bottom:14px">
+  <h2>期权 37 条</h2>
+  <div class="toolbar">
+    <label class="note">排序</label>
+    <select id="optSort">
+      <option value="dte-asc" selected>剩余天数 ↑ 最近到期</option>
+      <option value="dte-desc">剩余天数 ↓ 最远到期</option>
+      <option value="mv-asc">市值 从小到大</option>
+      <option value="mv-desc">市值 从大到小</option>
+      <option value="u-asc">未实现 从小到大</option>
+      <option value="u-desc">未实现 从大到小</option>
+      <option value="n-asc">合约名 A-Z</option>
+    </select>
+    <span class="note">默认按剩余到期日升序，小于 7 天标橙。点「剩余天数」列也可切换。</span>
+  </div>
+  <div style="overflow-x:auto"><table>
+    <thead><tr>
+      <th>合约</th><th>方向</th><th class="r">数量</th><th class="r">现价</th><th class="r">市值</th>
+      <th class="r">未实现</th><th class="r">当日</th>
+      <th>到期</th><th class="r sort active" id="thDte">剩余天数</th>
+    </tr></thead>
+    <tbody id="optBody"></tbody>
+  </table></div>
+</section>
+<section class="grid2">
+  <div class="card"><h2>债券（不计股价 Δ）</h2>
+    <table>
+      <tr><td>RABOBK CORP 6.5% Perpetual</td><td class="r">60 × €111.85</td></tr>
+      <tr><td>市值</td><td class="r">€67,109 ≈ $78,080</td></tr>
+    </table>
+  </div>
+  <div class="card"><h2>现金与杠杆</h2>
+    <table>
+      <tr><td>现金 USD</td><td class="r dn">−$46,387</td></tr>
+      <tr><td>NAV</td><td class="r">$838,006</td></tr>
+      <tr><td>IBKR 杠杆 Gross/NAV</td><td class="r">1.20x</td></tr>
+      <tr><td>组合 Δ / NAV</td><td class="r">≈ 1.10x</td></tr>
+      <tr><td>购买力</td><td class="r">$1,510,626</td></tr>
+    </table>
+  </div>
+</section>
+<p class="note" style="margin-top:16px">Δ 为股票市值 + Black–Scholes 估算期权美元 delta。</p>
+<footer>menglin-xia/ibkr-alloc-dash</footer>
+</div>
+<script>
+const NAV=838006.25;
+const stocks=[{s:'META',t:'股票',q:225,px:639.38,mv:143860.5,upnl:3203,d:5828},{s:'QQQ',t:'ETF',q:162,px:715.02,mv:115833,upnl:34048,d:-541},{s:'VOO',t:'ETF',q:146.38,px:701.59,mv:102696,upnl:32384,d:-363},{s:'RKLB',t:'股票',q:1200,px:67.63,mv:81156,upnl:-7345,d:2112},{s:'GOOG',t:'股票',q:200,px:331.31,mv:66262,upnl:5102,d:-814},{s:'SMH',t:'ETF',q:100,px:567.9,mv:56790,upnl:29340,d:-583},{s:'ECHO',t:'股票',q:550,px:93.12,mv:51216,upnl:-17571,d:-165},{s:'MSFT',t:'股票',q:100,px:493.69,mv:49369,upnl:10770,d:-26},{s:'LITE',t:'股票',q:40,px:963,mv:38520,upnl:1578,d:-621},{s:'TSLA',t:'股票',q:100,px:364.79,mv:36479,upnl:5232,d:-337},{s:'DRAM',t:'股票',q:560,px:60.49,mv:33874,upnl:-4227,d:-342},{s:'CRCL',t:'股票',q:300,px:96.5,mv:28950,upnl:6150,d:96},{s:'NVDA',t:'股票',q:111,px:224.6,mv:24931,upnl:818,d:-125},{s:'SE',t:'股票',q:200,px:111.56,mv:22312,upnl:-4355,d:-354},{s:'TSEM',t:'股票',q:50,px:219.91,mv:10996,upnl:-1356,d:5},{s:'MU',t:'股票',q:1,px:994.97,mv:995,upnl:57,d:-5}];
+const opts=[{"n":"AVGO Oct02'26 345 PUT","side":"空","q":-1,"px":5.52,"mv":-551.81,"u":292.4,"d":19.85,"exp":"2026-10-02","dte":23},{"n":"CRCL Sep25'26 90 CALL","side":"空","q":-3,"px":10.3,"mv":-3090.96,"u":-2163.04,"d":24.15,"exp":"2026-09-25","dte":16},{"n":"DRAM Sep11'26 60 PUT","side":"空","q":-5,"px":0.98,"mv":-492.26,"u":1692.95,"d":23.59,"exp":"2026-09-11","dte":2},{"n":"DRAM Sep18'26 61 PUT","side":"空","q":-5,"px":2.49,"mv":-1246.17,"u":5237.96,"d":79.63,"exp":"2026-09-18","dte":9},{"n":"ECHO Dec18'26 125 PUT","side":"空","q":-5,"px":32.56,"mv":-16279.15,"u":-3522.93,"d":59.3,"exp":"2026-12-18","dte":100},{"n":"ECHO Oct02'26 100 CALL","side":"空","q":-3,"px":1.95,"mv":-583.8,"u":14.84,"d":111.75,"exp":"2026-10-02","dte":23},{"n":"GOOG Sep18'26 355 PUT","side":"空","q":-1,"px":20.82,"mv":-2082.45,"u":-106.53,"d":-14.78,"exp":"2026-09-18","dte":9},{"n":"LITE Dec18'26 600 PUT","side":"空","q":-1,"px":21.14,"mv":-2113.51,"u":2717.34,"d":40.44,"exp":"2026-12-18","dte":100},{"n":"LITE Sep18'26 1130 CALL","side":"空","q":-1,"px":11.3,"mv":-1129.58,"u":358.35,"d":40.95,"exp":"2026-09-18","dte":9},{"n":"LITE Sep18'26 730 PUT","side":"空","q":-1,"px":1.15,"mv":-115.43,"u":3579.26,"d":29.21,"exp":"2026-09-18","dte":9},{"n":"LITE Sep18'26 790 PUT","side":"空","q":-1,"px":3.16,"mv":-316.44,"u":1788.27,"d":-1.54,"exp":"2026-09-18","dte":9},{"n":"META Nov20'26 690 CALL","side":"空","q":-1,"px":22.91,"mv":-2290.95,"u":-103.78,"d":17.4,"exp":"2026-11-20","dte":72},{"n":"META Oct16'26 635 CALL","side":"空","q":-1,"px":22.24,"mv":-2223.67,"u":-1034.47,"d":17.85,"exp":"2026-10-16","dte":37},{"n":"META Sep11'26 600 PUT","side":"空","q":-2,"px":4.32,"mv":-864.48,"u":6868.84,"d":-14.48,"exp":"2026-09-11","dte":2},{"n":"META Sep25'26 520 PUT","side":"空","q":-1,"px":0.81,"mv":-81.31,"u":625.9,"d":-8.31,"exp":"2026-09-25","dte":16},{"n":"MSFT Sep18'26 550 CALL","side":"空","q":-1,"px":0.12,"mv":-11.55,"u":455.66,"d":-0.49,"exp":"2026-09-18","dte":9},{"n":"MU Dec18'26 650 PUT","side":"空","q":-1,"px":13.89,"mv":-1388.55,"u":1664.35,"d":-49.49,"exp":"2026-12-18","dte":100},{"n":"MU Sep25'26 940 PUT","side":"空","q":-1,"px":25.56,"mv":-2556.38,"u":-492.19,"d":-61.47,"exp":"2026-09-25","dte":16},{"n":"NOW Sep18'26 124 PUT","side":"空","q":-1,"px":1.37,"mv":-136.75,"u":2531.14,"d":-2.35,"exp":"2026-09-18","dte":9},{"n":"NVDA Oct02'26 215 PUT","side":"空","q":-1,"px":3.68,"mv":-368.03,"u":-68.81,"d":-10.53,"exp":"2026-10-02","dte":23},{"n":"NVDA Oct02'26 250 CALL","side":"空","q":-1,"px":1.29,"mv":-128.62,"u":99.6,"d":2.38,"exp":"2026-10-02","dte":23},{"n":"NVDA Sep25'26 215 PUT","side":"空","q":-1,"px":2.72,"mv":-272.02,"u":-13.8,"d":-11.52,"exp":"2026-09-25","dte":16},{"n":"QQQ Sep18'26 690 PUT","side":"空","q":-1,"px":2.01,"mv":-201.48,"u":338.47,"d":-3.98,"exp":"2026-09-18","dte":9},{"n":"RKLB Jan15'27 80 CALL","side":"多","q":1,"px":7.69,"mv":768.94,"u":75.15,"d":1.44,"exp":"2027-01-15","dte":128},{"n":"RKLB Jun17'27 60 PUT","side":"空","q":-5,"px":13.06,"mv":-6531,"u":-543.29,"d":-75.3,"exp":"2027-06-17","dte":281},{"n":"RKLB Oct02'26 60 PUT","side":"空","q":-3,"px":2.16,"mv":-648.68,"u":381.23,"d":-20.12,"exp":"2026-10-02","dte":23},{"n":"RKLB Sep25'26 70 PUT","side":"空","q":-3,"px":6.47,"mv":-1940.33,"u":670.53,"d":-8.66,"exp":"2026-09-25","dte":16},{"n":"RKLB Sep25'26 75 PUT","side":"空","q":-2,"px":10.34,"mv":-2067.2,"u":-238.62,"d":-14.08,"exp":"2026-09-25","dte":16},{"n":"SE Dec18'26 160 CALL","side":"空","q":-1,"px":1.86,"mv":-185.99,"u":523.21,"d":18.3,"exp":"2026-12-18","dte":100},{"n":"SE Sep18'26 120 CALL","side":"空","q":-1,"px":1.31,"mv":-130.61,"u":363.33,"d":-18.41,"exp":"2026-09-18","dte":9},{"n":"SMH Dec18'26 450 PUT","side":"空","q":-1,"px":7.57,"mv":-756.88,"u":1980.26,"d":-6.57,"exp":"2026-12-18","dte":100},{"n":"SMH Dec18'26 500 PUT","side":"空","q":-1,"px":16.16,"mv":-1615.89,"u":496.28,"d":12.34,"exp":"2026-12-18","dte":100},{"n":"SMH Sep18'26 475 PUT","side":"空","q":-1,"px":0.26,"mv":-26.3,"u":2200.85,"d":1.05,"exp":"2026-09-18","dte":9},{"n":"TSLA Dec18'26 450 CALL","side":"空","q":-1,"px":11.95,"mv":-1194.56,"u":32.63,"d":-3.7,"exp":"2026-12-18","dte":100},{"n":"TTE Dec18'26 100 CALL","side":"空","q":-3,"px":1.4,"mv":-420.28,"u":256.16,"d":-7.78,"exp":"2026-12-18","dte":100},{"n":"TTE Dec18'26 90 CALL","side":"空","q":-6,"px":4.61,"mv":-2763.85,"u":-342.32,"d":35.21,"exp":"2026-12-18","dte":100},{"n":"TTE Sep18'26 90 CALL","side":"空","q":-2,"px":1.71,"mv":-342.76,"u":251.4,"d":-66.76,"exp":"2026-09-18","dte":9}];
+const fmt2=n=>n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const money=n=>(n<0?'\u2212$':'$')+fmt2(Math.abs(n));
+const cls=n=>n>0.5?'up':n<-0.5?'dn':'';
+const tb=document.getElementById('stkBody'), maxW=stocks[0].mv/NAV;
+stocks.forEach(x=>{const w=x.mv/NAV;tb.insertAdjacentHTML('beforeend',`<tr><td><b>${x.s}</b></td><td><span class="tag ${x.t==='ETF'?'etf':''}">${x.t}</span></td><td class="r">${x.q}</td><td class="r">${fmt2(x.px)}</td><td class="r">$${fmt2(x.mv)}</td><td class="r">${(w*100).toFixed(1)}%</td><td><div class="bar"><i style="width:${(w/maxW*100).toFixed(1)}%"></i></div></td><td class="r ${cls(x.upnl)}">${money(x.upnl)}</td><td class="r ${cls(x.d)}">${money(x.d)}</td></tr>`)});
+function renderOpts(list){
+  const ob=document.getElementById('optBody'); ob.innerHTML='';
+  list.forEach(o=>{
+    const soon=o.dte<=7?'soon':'';
+    ob.insertAdjacentHTML('beforeend', `<tr><td>${o.n}</td><td>${o.side}</td><td class="r">${o.q}</td><td class="r">${fmt2(o.px)}</td><td class="r">${money(o.mv)}</td><td class="r ${cls(o.u)}">${money(o.u)}</td><td class="r ${cls(o.d)}">${money(o.d)}</td><td>${o.exp}</td><td class="r ${soon}">${o.dte} 天</td></tr>`);
+  });
+}
+function sortOpts(key){
+  const [field,dir]=key.split('-');
+  const arr=opts.slice().sort((a,b)=>{
+    let va=a[field], vb=b[field];
+    if(typeof va==='string'){va=va.toUpperCase(); vb=vb.toUpperCase(); return dir==='desc'? vb.localeCompare(va): va.localeCompare(vb);}
+    return dir==='desc'? (vb-va):(va-vb);
+  });
+  renderOpts(arr);
+}
+document.getElementById('optSort').addEventListener('change', e=>sortOpts(e.target.value));
+document.getElementById('thDte').addEventListener('click', ()=>{
+  const sel=document.getElementById('optSort');
+  sel.value = sel.value==='dte-asc' ? 'dte-desc' : 'dte-asc';
+  sortOpts(sel.value);
+});
+sortOpts('dte-asc');
+const colors=['#5b8cff','#44d7e8','#f5c542','#b388ff','#ff9f43','#3ddc97','#ff6b7a'];
+const donut=(id,labels,data)=>new Chart(document.getElementById(id),{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:colors,borderColor:'#161e3a',borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{color:'#cdd6f0',boxWidth:12,font:{size:11}}}},cutout:'58%'}});
+donut('assetClass',['权益','固定收益','现金'],[868500,78138,914]);
+donut('instrument',['个股','ETF','债券','期权净空头'],[556149,311427,78138,56381]);
+donut('sector',['科技','宽基','电信','工业','金融','周期消费'],[320792,219596,207464,83940,78138,36708]);
+donut('region',['北美','欧洲','亚洲'],[835292,79045,33341]);
+donut('country',['美国','荷兰','新加坡','以色列'],[835292,78138,22320,11021]);
+new Chart(document.getElementById('navChart'),{type:'line',data:{labels:['08-07','08-14','08-21','08-28','09-02','09-04','09-08','09-09'],datasets:[{label:'NAV',data:[747083,792255,768849,786286,797701,824633,836709,838006],borderColor:'#5b8cff',backgroundColor:'rgba(91,140,255,.18)',fill:true,tension:.35,pointRadius:3}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#93a0c2'},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#93a0c2',callback:v=>'$'+(v/1000).toFixed(0)+'k'},grid:{color:'rgba(255,255,255,.06)'}}}}});
+</script>
 </body></html>
