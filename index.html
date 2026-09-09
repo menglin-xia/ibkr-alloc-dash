@@ -1,25 +1,79 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>IBKR 仪表盘</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-<style>body{margin:0;background:#0b1020;color:#e8edf8;font-family:PingFang SC,sans-serif}.wrap{max-width:1280px;margin:0 auto;padding:28px 22px}header{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}.badge{background:rgba(61,220,151,.12);color:#3ddc97;border:1px solid rgba(61,220,151,.25);padding:4px 10px;border-radius:999px;font-size:12px}.badges{display:flex;gap:8px;flex-wrap:wrap}.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:18px 0}.kpi,.card{background:#161e3a;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px}.up{color:#3ddc97}.dn{color:#ff6b7a}.note{color:#93a0c2;font-size:12px}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid rgba(255,255,255,.06)}.r{text-align:right}@media(max-width:900px){.kpis{grid-template-columns:1fr 1fr}}</style></head>
-<body><div class="wrap">
-<header><div><h1>投资组合仪表盘</h1><div class="note">IBKR · 2026-09-09 13:25 CEST · 期权Δ 为 BS 估算</div></div>
-<div class="badges"><div class="badge">杠杆 1.20x</div><div class="badge">组合 Δ ≈ 1.10× NAV</div></div></header>
-<section class="kpis">
-<div class="kpi">NAV<div style="font-size:20px">$838,006</div><div class="note">毛头寸 $1,002,644</div></div>
-<div class="kpi">股票 Δ $<div style="font-size:20px">$864,239</div><div class="note">1.03× NAV</div></div>
-<div class="kpi">期权 Δ $<div style="font-size:20px" class="up">+$53,000</div><div class="note">空 put 增多 / 空 call 减多</div></div>
-<div class="kpi">组合 Δ $<div style="font-size:20px">$917,000</div><div class="note">≈ 1.10× NAV</div></div>
-<div class="kpi">YTD / 1Y<div style="font-size:20px" class="up">+42.6% / +58.5%</div></div>
-<div class="kpi">期权净市值<div style="font-size:20px">−$56,381</div></div>
-</section>
-<div class="card"><h3>怎么读</h3>
-<p class="note">IBKR 杠杆 1.20x = 毛头寸 / NAV，不含期权Δ。组合Δ = 股票市值（Δ=1）+ 期权分享等价×现价。债券不计入股价Δ。IV 用的是各标的估值不是 IBKR 实时隐波，误差大约 ±0.05× NAV。</p>
-<table>
-<tr><td>股票/市值Δ</td><td class="r">$864k</td></tr>
-<tr><td>期权估算Δ</td><td class="r">+$53k</td></tr>
-<tr><td>合计 / NAV</td><td class="r">1.10x</td></tr>
-<tr><td>IBKR Gross / NAV</td><td class="r">1.20x</td></tr>
-</table></div>
-<p class="note">完整仓位表见 <a href="index.html" style="color:#8ae7f2">上一版快照仍在仓库历史</a>。请刷新 Pages。若需把Δ贴回完整页，下次自动更新会覆盖。</p>
-</div></body></html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IBKR 投资组合仪表盘</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <style>
+    :root { --bg:#0b1020; --bg2:#121933; --card:#161e3a; --card2:#1c2648; --line:rgba(255,255,255,.08); --text:#e8edf8; --muted:#93a0c2; --green:#3ddc97; --red:#ff6b7a; }
+    * { box-sizing:border-box; } html,body{margin:0;background:var(--bg);color:var(--text);font-family:PingFang SC,Noto Sans SC,Inter,sans-serif;}
+    .wrap{max-width:1280px;margin:0 auto;padding:28px 22px 60px;}
+    header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px;}
+    h1{font-size:26px;margin:0 0 4px;} .sub{color:var(--muted);font-size:13px;}
+    .badges{display:flex;gap:8px;flex-wrap:wrap;}
+    .badge{background:rgba(61,220,151,.12);color:var(--green);border:1px solid rgba(61,220,151,.25);padding:4px 10px;border-radius:999px;font-size:12px;}
+    .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:18px;}
+    .kpi{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:14px;}
+    .kpi .l{color:var(--muted);font-size:12px;margin-bottom:6px;} .kpi .v{font-size:20px;font-weight:650;} .kpi .s{font-size:12px;margin-top:4px;color:var(--muted);}
+    .up{color:var(--green);} .dn{color:var(--red);}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+    .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;} .card h2{margin:0 0 12px;font-size:15px;color:#cdd6f0;}
+    .chart-box{position:relative;height:250px;}
+    table{width:100%;border-collapse:collapse;font-size:13px;} th{text-align:left;color:var(--muted);font-size:11px;padding:8px;border-bottom:1px solid var(--line);} td{padding:8px;border-bottom:1px solid rgba(255,255,255,.04);} .r{text-align:right;font-variant-numeric:tabular-nums;}
+    .bar{height:6px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;min-width:70px;} .bar>i{display:block;height:100%;background:linear-gradient(90deg,#5b8cff,#44d7e8);}
+    .note{color:var(--muted);font-size:12.5px;line-height:1.65;} .pills{display:flex;flex-wrap:wrap;gap:8px;} .pill{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:12px;} .pill b{display:block;font-size:14px;margin-top:2px;}
+    .tag{display:inline-block;font-size:10px;padding:2px 6px;border-radius:6px;background:rgba(91,140,255,.15);color:#9bbcff;} .tag.etf{background:rgba(68,215,232,.15);color:#8ae7f2;}
+    footer{margin-top:18px;color:var(--muted);font-size:11px;}
+    @media (max-width:1100px){.kpis,.grid3,.grid2{grid-template-columns:1fr;}.kpis{grid-template-columns:1fr 1fr;}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div><h1>投资组合仪表盘</h1><div class="sub">Interactive Brokers · USD · 2026-09-09 13:25 CEST · 期权Δ 为 BS 估算</div></div>
+      <div class="badges"><div class="badge">杠杆 1.20x</div><div class="badge">组合 Δ ≈ 1.10× NAV</div></div>
+    </header>
+    <section class="kpis">
+      <div class="kpi"><div class="l">净资产 NAV</div><div class="v">$838,006</div><div class="s">毛头寸 $1,002,644</div></div>
+      <div class="kpi"><div class="l">股票 Δ $</div><div class="v">$864k</div><div class="s">1.03× NAV</div></div>
+      <div class="kpi"><div class="l">期权 Δ $</div><div class="v up">+$53k</div><div class="s">空 put 增多 / 空 call 减多</div></div>
+      <div class="kpi"><div class="l">组合 Δ $</div><div class="v">$917k</div><div class="s">≈ 1.10× NAV</div></div>
+      <div class="kpi"><div class="l">YTD / 1Y</div><div class="v up">+42.6% / +58.5%</div><div class="s">TWR</div></div>
+      <div class="kpi"><div class="l">期权净市值</div><div class="v">−$56,381</div><div class="s">权利金市值，不是Δ</div></div>
+    </section>
+    <section class="grid2">
+      <div class="card"><h2>资产类别（多头）</h2><div class="chart-box"><canvas id="assetClass"></canvas></div></div>
+      <div class="card"><h2>金融工具</h2><div class="chart-box"><canvas id="instrument"></canvas></div></div>
+    </section>
+    <section class="card" style="margin-bottom:14px">
+      <h2>股票 / ETF</h2>
+      <div style="overflow-x:auto"><table><thead><tr>
+        <th>标的</th><th>类型</th><th class="r">数量</th><th class="r">现价</th><th class="r">市值=Δ$</th><th class="r">占 NAV</th><th></th><th class="r">未实现</th><th class="r">当日</th>
+      </tr></thead><tbody id="stkBody"></tbody></table></div>
+    </section>
+    <section class="grid2">
+      <div class="card"><h2>债券（不计股价 Δ）</h2><table>
+        <tr><td>RABOBK 6.5% Perp</td><td class="r">€67,109 ≈ $78k</td></tr>
+      </table></div>
+      <div class="card"><h2>Δ 说明</h2>
+        <p class="note">1.20x 是 Gross/NAV。1.10x 是股票市值 + BS 估算的期权美元Δ。IBKR 接口不提供实时希腊值，误差约 ±0.05x。</p>
+      </div>
+    </section>
+    <footer>menglin-xia/ibkr-alloc-dash</footer>
+  </div>
+  <script>
+    const NAV=838006.25;
+    const stocks=[{"s":"META","t":"股票","q":225,"px":639.38,"mv":143860.5,"upnl":3203,"d":5828},{"s":"QQQ","t":"ETF","q":162,"px":715.02,"mv":115833,"upnl":34048,"d":-541},{"s":"VOO","t":"ETF","q":146.38,"px":701.59,"mv":102696,"upnl":32384,"d":-363},{"s":"RKLB","t":"股票","q":1200,"px":67.63,"mv":81156,"upnl":-7345,"d":2112},{"s":"GOOG","t":"股票","q":200,"px":331.31,"mv":66262,"upnl":5102,"d":-814},{"s":"SMH","t":"ETF","q":100,"px":567.9,"mv":56790,"upnl":29340,"d":-583},{"s":"ECHO","t":"股票","q":550,"px":93.12,"mv":51216,"upnl":-17571,"d":-165},{"s":"MSFT","t":"股票","q":100,"px":493.69,"mv":49369,"upnl":10770,"d":-26},{"s":"LITE","t":"股票","q":40,"px":963,"mv":38520,"upnl":1578,"d":-621},{"s":"TSLA","t":"股票","q":100,"px":364.79,"mv":36479,"upnl":5232,"d":-337},{"s":"DRAM","t":"股票","q":560,"px":60.49,"mv":33874,"upnl":-4227,"d":-342},{"s":"CRCL","t":"股票","q":300,"px":96.5,"mv":28950,"upnl":6150,"d":96},{"s":"NVDA","t":"股票","q":111,"px":224.6,"mv":24931,"upnl":818,"d":-125},{"s":"SE","t":"股票","q":200,"px":111.56,"mv":22312,"upnl":-4355,"d":-354},{"s":"TSEM","t":"股票","q":50,"px":219.91,"mv":10996,"upnl":-1356,"d":5},{"s":"MU","t":"股票","q":1,"px":994.97,"mv":995,"upnl":57,"d":-5}];
+    const fmt2=n=>n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    const money=n=>(n<0?'\u2212$':'$')+fmt2(Math.abs(n));
+    const cls=n=>n>0.5?'up':n<-0.5?'dn':'';
+    const tb=document.getElementById('stkBody'), maxW=stocks[0].mv/NAV;
+    stocks.forEach(x=>{const w=x.mv/NAV;tb.insertAdjacentHTML('beforeend',`<tr><td><b>${x.s}</b></td><td><span class="tag ${x.t==='ETF'?'etf':''}">${x.t}</span></td><td class="r">${x.q}</td><td class="r">${fmt2(x.px)}</td><td class="r">$${fmt2(x.mv)}</td><td class="r">${(w*100).toFixed(1)}%</td><td><div class="bar"><i style="width:${(w/maxW*100).toFixed(1)}%"></i></div></td><td class="r ${cls(x.upnl)}">${money(x.upnl)}</td><td class="r ${cls(x.d)}">${money(x.d)}</td></tr>`);});
+    const colors=['#5b8cff','#44d7e8','#f5c542','#b388ff','#ff9f43','#3ddc97'];
+    const donut=(id,labels,data)=>new Chart(document.getElementById(id),{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:colors,borderColor:'#161e3a',borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{color:'#cdd6f0',boxWidth:12}}},cutout:'58%'}});
+    donut('assetClass',['权益','固定收益','现金'],[868500,78138,914]);
+    donut('instrument',['个股','ETF','债券','期权净空'],[556149,311427,78138,56381]);
+  </script>
+</body></html>
