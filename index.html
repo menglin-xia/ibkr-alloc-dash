@@ -1,36 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Allocation</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-<style>
-:root{--bg:#0b1020;--card:#161e3a;--line:rgba(255,255,255,.08);--text:#e8edf8;--muted:#93a0c2;--green:#3ddc97;--red:#ff6b7a}
-*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,PingFang SC,sans-serif}
-.wrap{max-width:1200px;margin:0 auto;padding:24px}.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.kpi,.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}.up{color:var(--green)}.dn{color:var(--red)}
-.chart-box{height:240px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:6px 8px;border-bottom:1px solid var(--line)}.r{text-align:right}
-</style></head>
-<body><div class="wrap">
-<h1>资产配置</h1>
-<p style="color:#93a0c2">IBKR · 快照 2026-09-09 08:56 UTC · 公开 Pages 站点</p>
-<div class="kpis">
-<div class="kpi">NAV<div class="up" style="font-size:22px">$845,002</div></div>
-<div class="kpi">当日<div class="up" style="font-size:22px">+$7,320 / +0.97%</div></div>
-<div class="kpi">YTD / 1Y<div class="up" style="font-size:22px">+42.6% / +58.5%</div></div>
-</div>
-<div class="card" style="margin-top:14px"><h2>配置</h2><div class="chart-box"><canvas id="a"></canvas></div></div>
-<div class="card" style="margin-top:14px"><h2>持仓前五</h2>
-<table><tr><th>标的</th><th class="r">市值</th><th class="r">占 NAV</th></tr>
-<tr><td>META</td><td class="r">$140,353</td><td class="r">16.6%</td></tr>
-<tr><td>QQQ</td><td class="r">$116,497</td><td class="r">13.8%</td></tr>
-<tr><td>VOO</td><td class="r">$103,102</td><td class="r">12.2%</td></tr>
-<tr><td>RKLB</td><td class="r">$83,004</td><td class="r">9.8%</td></tr>
-<tr><td>GOOG</td><td class="r">$67,100</td><td class="r">7.9%</td></tr>
-</table></div>
-<p style="color:#93a0c2;font-size:12px">详细仓位仍在私有仓库 ibkr-portfolio-dashboard。本页已公开。</p>
-</div>
-<script>
-new Chart(document.getElementById('a'),{type:'doughnut',data:{labels:['个股','ETF','债券','现金'],datasets:[{data:[556149,311427,78138,914],backgroundColor:['#5b8cff','#44d7e8','#f5c542','#b388ff'],borderColor:'#161e3a'}]},options:{maintainAspectRatio:false,plugins:{legend:{labels:{color:'#cdd6f0'}}},cutout:'58%'}});
-</script></body></html>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IBKR 投资组合仪表盘</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<p>placeholder will be replaced</p>
+</body>
+</html>
