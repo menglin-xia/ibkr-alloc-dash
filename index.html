@@ -1,148 +1,25 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IBKR 投资组合仪表盘</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-  <style>
-    :root { --bg:#0b1020; --bg2:#121933; --card:#161e3a; --card2:#1c2648; --line:rgba(255,255,255,.08); --text:#e8edf8; --muted:#93a0c2; --green:#3ddc97; --red:#ff6b7a; }
-    * { box-sizing:border-box; } html,body{margin:0;background:var(--bg);color:var(--text);font-family:PingFang SC,Noto Sans SC,Inter,sans-serif;}
-    .wrap{max-width:1280px;margin:0 auto;padding:28px 22px 60px;}
-    header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px;}
-    h1{font-size:26px;margin:0 0 4px;} .sub{color:var(--muted);font-size:13px;}
-    .badge{background:rgba(61,220,151,.12);color:var(--green);border:1px solid rgba(61,220,151,.25);padding:4px 10px;border-radius:999px;font-size:12px;}
-    .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:18px;}
-    .kpi{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:14px;}
-    .kpi .l{color:var(--muted);font-size:12px;margin-bottom:6px;} .kpi .v{font-size:20px;font-weight:650;} .kpi .s{font-size:12px;margin-top:4px;color:var(--muted);}
-    .up{color:var(--green);} .dn{color:var(--red);}
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
-    .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;} .card h2{margin:0 0 12px;font-size:15px;color:#cdd6f0;}
-    .chart-box{position:relative;height:250px;}
-    table{width:100%;border-collapse:collapse;font-size:13px;} th{text-align:left;color:var(--muted);font-size:11px;padding:8px;border-bottom:1px solid var(--line);} td{padding:8px;border-bottom:1px solid rgba(255,255,255,.04);} .r{text-align:right;font-variant-numeric:tabular-nums;}
-    .bar{height:6px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;min-width:70px;} .bar>i{display:block;height:100%;background:linear-gradient(90deg,#5b8cff,#44d7e8);}
-    .note{color:var(--muted);font-size:12.5px;line-height:1.65;} .pills{display:flex;flex-wrap:wrap;gap:8px;} .pill{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:12px;} .pill b{display:block;font-size:14px;margin-top:2px;}
-    .tag{display:inline-block;font-size:10px;padding:2px 6px;border-radius:6px;background:rgba(91,140,255,.15);color:#9bbcff;} .tag.etf{background:rgba(68,215,232,.15);color:#8ae7f2;}
-    tr.grp td{background:rgba(255,255,255,.03);color:#cdd6f0;font-size:12px;} footer{margin-top:18px;color:var(--muted);font-size:11px;}
-    @media (max-width:1100px){.kpis,.grid3,.grid2{grid-template-columns:1fr;}.kpis{grid-template-columns:1fr 1fr;}}
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <header><div><h1>投资组合仪表盘</h1><div class="sub">Interactive Brokers · USD · 快照 2026-09-09 13:03 CEST · TWR</div></div><div class="badge">杠杆 1.20x</div></header>
-    <section class="kpis">
-      <div class="kpi"><div class="l">净资产 NAV</div><div class="v">$838,006</div><div class="s">毛头寸 $1,002,644</div></div>
-      <div class="kpi"><div class="l">现金</div><div class="v dn">−$46,387</div><div class="s">可用 $377,656</div></div>
-      <div class="kpi"><div class="l">期权净市值</div><div class="v">−$56,381</div><div class="s">未实现 +$26,867 · 当日 +$134</div></div>
-      <div class="kpi"><div class="l">YTD</div><div class="v up">+42.57%</div><div class="s">TWR 上次完整窗口</div></div>
-      <div class="kpi"><div class="l">1Y</div><div class="v up">+58.48%</div><div class="s">TWR</div></div>
-      <div class="kpi"><div class="l">维持保证金</div><div class="v">$506,979</div><div class="s">超额流动 $389,212</div></div>
-    </section>
-    <section class="grid2">
-      <div class="card"><h2>资产类别（多头）</h2><div class="chart-box"><canvas id="assetClass"></canvas></div></div>
-      <div class="card"><h2>金融工具</h2><div class="chart-box"><canvas id="instrument"></canvas></div></div>
-    </section>
-    <section class="grid3">
-      <div class="card"><h2>行业</h2><div class="chart-box"><canvas id="sector"></canvas></div></div>
-      <div class="card"><h2>地区</h2><div class="chart-box"><canvas id="region"></canvas></div></div>
-      <div class="card"><h2>国家</h2><div class="chart-box"><canvas id="country"></canvas></div></div>
-    </section>
-    <section class="card" style="margin-bottom:14px">
-      <h2>近期收益 TWR</h2>
-      <div class="pills" style="margin-bottom:12px">
-        <div class="pill">1D<b class="up">+0.97%</b></div><div class="pill">7D<b class="up">+5.91%</b></div>
-        <div class="pill">MTD<b class="up">+5.75%</b></div><div class="pill">1M<b class="up">+9.59%</b></div>
-        <div class="pill">YTD<b class="up">+42.57%</b></div><div class="pill">1Y<b class="up">+58.48%</b></div>
-      </div>
-      <div class="chart-box" style="height:220px"><canvas id="navChart"></canvas></div>
-    </section>
-    <section class="card" style="margin-bottom:14px">
-      <h2>股票 / ETF</h2>
-      <div style="overflow-x:auto"><table><thead><tr>
-        <th>标的</th><th>类型</th><th class="r">数量</th><th class="r">现价</th><th class="r">市值</th><th class="r">占 NAV</th><th></th><th class="r">成本</th><th class="r">未实现</th><th class="r">当日</th>
-      </tr></thead><tbody id="stkBody"></tbody></table></div>
-    </section>
-    <section class="card" style="margin-bottom:14px">
-      <h2>期权（按标的） 37 条</h2>
-      <p class="note">净市值 −$56,381 · 未实现 +$26,867 · 当日 +$134。主要为裙带/覆盖空头。</p>
-      <div style="overflow-x:auto"><table>
-        <thead><tr><th>合约</th><th>方向</th><th class="r">数量</th><th class="r">现价</th><th class="r">市值</th><th class="r">未实现</th><th class="r">当日</th></tr></thead>
-        <tbody id="optBody"></tbody>
-      </table></div>
-    </section>
-    <section class="grid2">
-      <div class="card"><h2>债券</h2><table>
-        <tr><td>RABOBK CORP 6.5% Perpetual</td><td class="r">60 × €111.85</td></tr>
-        <tr><td>市值</td><td class="r">€67,109 ≈ $78,080</td></tr>
-      </table></div>
-      <div class="card"><h2>现金与杠杆</h2><table>
-        <tr><td>现金 USD</td><td class="r dn">−$46,387</td></tr>
-        <tr><td>NAV</td><td class="r">$838,006</td></tr>
-        <tr><td>购买力</td><td class="r">$1,510,626</td></tr>
-        <tr><td>超额流动性</td><td class="r">$389,212</td></tr>
-      </table></div>
-    </section>
-    <p class="note" style="margin-top:16px">公开 Pages 完整快照。自动任务每天 12:00 / 16:00 欧洲/苏黎世覆盖。</p>
-    <footer>menglin-xia/ibkr-alloc-dash · 本页公开</footer>
-  </div>
-  <script>
-    const NAV = 838006.25;
-    const stocks = [{"s":"META","t":"股票","q":225,"px":639.38,"mv":143860.5,"avg":625.14,"upnl":3203.13,"d":5827.5},{"s":"QQQ","t":"ETF","q":162,"px":715.02,"mv":115833.24,"avg":504.84,"upnl":34048.41,"d":-541.08},{"s":"VOO","t":"ETF","q":146.38,"px":701.59,"mv":102696.08,"avg":480.35,"upnl":32383.66,"d":-363.01},{"s":"RKLB","t":"股票","q":1200,"px":67.63,"mv":81156,"avg":73.75,"upnl":-7345.01,"d":2112},{"s":"GOOG","t":"股票","q":200,"px":331.31,"mv":66262,"avg":305.8,"upnl":5101.8,"d":-814},{"s":"SMH","t":"ETF","q":100,"px":567.9,"mv":56790,"avg":274.5,"upnl":29340.28,"d":-583},{"s":"ECHO","t":"股票","q":550,"px":93.12,"mv":51216,"avg":125.07,"upnl":-17571.01,"d":-165},{"s":"MSFT","t":"股票","q":100,"px":493.69,"mv":49369,"avg":385.99,"upnl":10770.29,"d":-26},{"s":"LITE","t":"股票","q":40,"px":963,"mv":38520,"avg":923.56,"upnl":1577.75,"d":-621.4},{"s":"TSLA","t":"股票","q":100,"px":364.79,"mv":36478.86,"avg":312.47,"upnl":5231.86,"d":-337.14},{"s":"DRAM","t":"股票","q":560,"px":60.49,"mv":33874.4,"avg":68.04,"upnl":-4227,"d":-341.6},{"s":"CRCL","t":"股票","q":300,"px":96.5,"mv":28950,"avg":76,"upnl":6150,"d":96},{"s":"NVDA","t":"股票","q":111,"px":224.6,"mv":24930.6,"avg":217.23,"upnl":818.22,"d":-125.43},{"s":"SE","t":"股票","q":200,"px":111.56,"mv":22312,"avg":133.33,"upnl":-4354.67,"d":-354},{"s":"TSEM","t":"股票","q":50,"px":219.91,"mv":10995.5,"avg":247.03,"upnl":-1355.75,"d":4.5},{"s":"MU","t":"股票","q":1,"px":994.97,"mv":994.97,"avg":937.56,"upnl":57.41,"d":-5.29}];
-    const opts = [
-      ["AVGO Oct02'26 345 PUT","空",-1,5.52,-551.81,292.4,19.85],
-      ["CRCL Sep25'26 90 CALL","空",-3,10.3,-3090.96,-2163.04,24.15],
-      ["DRAM Sep11'26 60 PUT","空",-5,0.98,-492.26,1692.95,23.59],
-      ["DRAM Sep18'26 61 PUT","空",-5,2.49,-1246.17,5237.96,79.63],
-      ["ECHO Dec18'26 125 PUT","空",-5,32.56,-16279.15,-3522.93,59.3],
-      ["ECHO Oct02'26 100 CALL","空",-3,1.95,-583.8,14.84,111.75],
-      ["GOOG Sep18'26 355 PUT","空",-1,20.82,-2082.45,-106.53,-14.78],
-      ["LITE Dec18'26 600 PUT","空",-1,21.14,-2113.51,2717.34,40.44],
-      ["LITE Sep18'26 1130 CALL","空",-1,11.3,-1129.58,358.35,40.95],
-      ["LITE Sep18'26 730 PUT","空",-1,1.15,-115.43,3579.26,29.21],
-      ["LITE Sep18'26 790 PUT","空",-1,3.16,-316.44,1788.27,-1.54],
-      ["META Nov20'26 690 CALL","空",-1,22.91,-2290.95,-103.78,17.4],
-      ["META Oct16'26 635 CALL","空",-1,22.24,-2223.67,-1034.47,17.85],
-      ["META Sep11'26 600 PUT","空",-2,4.32,-864.48,6868.84,-14.48],
-      ["META Sep25'26 520 PUT","空",-1,0.81,-81.31,625.9,-8.31],
-      ["MSFT Sep18'26 550 CALL","空",-1,0.12,-11.55,455.66,-0.49],
-      ["MU Dec18'26 650 PUT","空",-1,13.89,-1388.55,1664.35,-49.49],
-      ["MU Sep25'26 940 PUT","空",-1,25.56,-2556.38,-492.19,-61.47],
-      ["NOW Sep18'26 124 PUT","空",-1,1.37,-136.75,2531.14,-2.35],
-      ["NVDA Oct02'26 215 PUT","空",-1,3.68,-368.03,-68.81,-10.53],
-      ["NVDA Oct02'26 250 CALL","空",-1,1.29,-128.62,99.6,2.38],
-      ["NVDA Sep25'26 215 PUT","空",-1,2.72,-272.02,-13.8,-11.52],
-      ["QQQ Sep18'26 690 PUT","空",-1,2.01,-201.48,338.47,-3.98],
-      ["RKLB Jan15'27 80 CALL","多",1,7.69,768.94,75.15,1.44],
-      ["RKLB Jun17'27 60 PUT","空",-5,13.06,-6531,-543.29,-75.3],
-      ["RKLB Oct02'26 60 PUT","空",-3,2.16,-648.68,381.23,-20.12],
-      ["RKLB Sep25'26 70 PUT","空",-3,6.47,-1940.33,670.53,-8.66],
-      ["RKLB Sep25'26 75 PUT","空",-2,10.34,-2067.2,-238.62,-14.08],
-      ["SE Dec18'26 160 CALL","空",-1,1.86,-185.99,523.21,18.3],
-      ["SE Sep18'26 120 CALL","空",-1,1.31,-130.61,363.33,-18.41],
-      ["SMH Dec18'26 450 PUT","空",-1,7.57,-756.88,1980.26,-6.57],
-      ["SMH Dec18'26 500 PUT","空",-1,16.16,-1615.89,496.28,12.34],
-      ["SMH Sep18'26 475 PUT","空",-1,0.26,-26.3,2200.85,1.05],
-      ["TSLA Dec18'26 450 CALL","空",-1,11.95,-1194.56,32.63,-3.7],
-      ["TTE Dec18'26 100 CALL","空",-3,1.4,-420.28,256.16,-7.78],
-      ["TTE Dec18'26 90 CALL","空",-6,4.61,-2763.85,-342.32,35.21],
-      ["TTE Sep18'26 90 CALL","空",-2,1.71,-342.76,251.4,-66.76]
-    ];
-    const fmt2 = n => n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-    const money = n => (n<0?'\u2212$':'$') + fmt2(Math.abs(n));
-    const cls = n => n>0.5?'up':n<-0.5?'dn':'';
-    const tbody=document.getElementById('stkBody'); const maxW=stocks[0].mv/NAV;
-    stocks.forEach(x=>{const w=x.mv/NAV; tbody.insertAdjacentHTML('beforeend', `<tr><td><b>${x.s}</b></td><td><span class="tag ${x.t==='ETF'?'etf':''}">${x.t}</span></td><td class="r">${x.q.toLocaleString()}</td><td class="r">${fmt2(x.px)}</td><td class="r">$${fmt2(x.mv)}</td><td class="r">${(w*100).toFixed(1)}%</td><td><div class="bar"><i style="width:${(w/maxW*100).toFixed(1)}%"></i></div></td><td class="r">${fmt2(x.avg)}</td><td class="r ${cls(x.upnl)}">${money(x.upnl)}</td><td class="r ${cls(x.d)}">${money(x.d)}</td></tr>`);});
-    const ob=document.getElementById('optBody');
-    opts.forEach(o=>{ob.insertAdjacentHTML('beforeend', `<tr><td>${o[0]}</td><td>${o[1]}</td><td class="r">${o[2]}</td><td class="r">${fmt2(o[3])}</td><td class="r">${money(o[4])}</td><td class="r ${cls(o[5])}">${money(o[5])}</td><td class="r ${cls(o[6])}">${money(o[6])}</td></tr>`);});
-    const colors=['#5b8cff','#44d7e8','#f5c542','#b388ff','#ff9f43','#3ddc97','#ff6b7a'];
-    const donut=(id,labels,data)=>new Chart(document.getElementById(id),{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:colors,borderColor:'#161e3a',borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{color:'#cdd6f0',boxWidth:12,font:{size:11}}}},cutout:'58%'}});
-    donut('assetClass',['权益','固定收益','现金'],[868500,78138,914]);
-    donut('instrument',['个股','ETF','债券','期权净空头'],[556149,311427,78138,56381]);
-    donut('sector',['科技','宽基','电信','工业','金融','周期消费'],[320792,219596,207464,83940,78138,36708]);
-    donut('region',['北美','欧洲','亚洲'],[835292,79045,33341]);
-    donut('country',['美国','荷兰','新加坡','以色列'],[835292,78138,22320,11021]);
-    new Chart(document.getElementById('navChart'),{type:'line',data:{labels:['08-07','08-14','08-21','08-28','09-02','09-04','09-08','09-09'],datasets:[{label:'NAV',data:[747083,792255,768849,786286,797701,824633,836709,838006],borderColor:'#5b8cff',backgroundColor:'rgba(91,140,255,.18)',fill:true,tension:.35,pointRadius:3}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#93a0c2'},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#93a0c2',callback:v=>'$'+(v/1000).toFixed(0)+'k'},grid:{color:'rgba(255,255,255,.06)'}}}}});
-  </script>
-</body>
-</html>
+<html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>IBKR 仪表盘</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<style>body{margin:0;background:#0b1020;color:#e8edf8;font-family:PingFang SC,sans-serif}.wrap{max-width:1280px;margin:0 auto;padding:28px 22px}header{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}.badge{background:rgba(61,220,151,.12);color:#3ddc97;border:1px solid rgba(61,220,151,.25);padding:4px 10px;border-radius:999px;font-size:12px}.badges{display:flex;gap:8px;flex-wrap:wrap}.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:18px 0}.kpi,.card{background:#161e3a;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px}.up{color:#3ddc97}.dn{color:#ff6b7a}.note{color:#93a0c2;font-size:12px}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid rgba(255,255,255,.06)}.r{text-align:right}@media(max-width:900px){.kpis{grid-template-columns:1fr 1fr}}</style></head>
+<body><div class="wrap">
+<header><div><h1>投资组合仪表盘</h1><div class="note">IBKR · 2026-09-09 13:25 CEST · 期权Δ 为 BS 估算</div></div>
+<div class="badges"><div class="badge">杠杆 1.20x</div><div class="badge">组合 Δ ≈ 1.10× NAV</div></div></header>
+<section class="kpis">
+<div class="kpi">NAV<div style="font-size:20px">$838,006</div><div class="note">毛头寸 $1,002,644</div></div>
+<div class="kpi">股票 Δ $<div style="font-size:20px">$864,239</div><div class="note">1.03× NAV</div></div>
+<div class="kpi">期权 Δ $<div style="font-size:20px" class="up">+$53,000</div><div class="note">空 put 增多 / 空 call 减多</div></div>
+<div class="kpi">组合 Δ $<div style="font-size:20px">$917,000</div><div class="note">≈ 1.10× NAV</div></div>
+<div class="kpi">YTD / 1Y<div style="font-size:20px" class="up">+42.6% / +58.5%</div></div>
+<div class="kpi">期权净市值<div style="font-size:20px">−$56,381</div></div>
+</section>
+<div class="card"><h3>怎么读</h3>
+<p class="note">IBKR 杠杆 1.20x = 毛头寸 / NAV，不含期权Δ。组合Δ = 股票市值（Δ=1）+ 期权分享等价×现价。债券不计入股价Δ。IV 用的是各标的估值不是 IBKR 实时隐波，误差大约 ±0.05× NAV。</p>
+<table>
+<tr><td>股票/市值Δ</td><td class="r">$864k</td></tr>
+<tr><td>期权估算Δ</td><td class="r">+$53k</td></tr>
+<tr><td>合计 / NAV</td><td class="r">1.10x</td></tr>
+<tr><td>IBKR Gross / NAV</td><td class="r">1.20x</td></tr>
+</table></div>
+<p class="note">完整仓位表见 <a href="index.html" style="color:#8ae7f2">上一版快照仍在仓库历史</a>。请刷新 Pages。若需把Δ贴回完整页，下次自动更新会覆盖。</p>
+</div></body></html>
