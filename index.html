@@ -46,20 +46,20 @@ footer{margin-top:18px;color:var(--muted);font-size:11px}
 <header>
   <div>
     <h1>投资组合仪表盘</h1>
-    <div class="sub">Interactive Brokers · USD · 2026-09-09 17:18 CEST · 期权表已更新</div>
+    <div class="sub">Interactive Brokers · USD · 2026-09-10 12:00 CEST · TWR</div>
   </div>
   <div class="badges">
-    <div class="badge">杠杆 1.29x</div>
+    <div class="badge">杠杆 1.20x</div>
     <div class="badge">TWR</div>
   </div>
 </header>
 <section class="kpis">
-  <div class="kpi"><div class="l">净资产 NAV</div><div class="v">$834,507</div><div class="s">毛头寸 $1,072,530</div></div>
-  <div class="kpi"><div class="l">当日盈亏</div><div class="v dn">−$2,418</div><div class="s">TWR −0.26%</div></div>
-  <div class="kpi"><div class="l">未实现盈亏</div><div class="v up">+$111,473</div><div class="s">约 NAV 13.4%</div></div>
-  <div class="kpi"><div class="l">YTD / 1Y</div><div class="v up">+40.8% / +56.5%</div><div class="s">TWR</div></div>
-  <div class="kpi"><div class="l">期权净市值</div><div class="v dn">≈ −$60.8k</div><div class="s">权利金</div></div>
-  <div class="kpi"><div class="l">7D / MTD</div><div class="v up">+4.61% / +4.46%</div><div class="s">TWR</div></div>
+  <div class="kpi"><div class="l">净资产 NAV</div><div class="v">$830,193</div><div class="s">毛头寸 $993,782</div></div>
+  <div class="kpi"><div class="l">当日盈亏</div><div class="v dn">−$1,986</div><div class="s">TWR −0.41%</div></div>
+  <div class="kpi"><div class="l">未实现盈亏</div><div class="v up">+$106,563</div><div class="s">约 NAV 12.8%</div></div>
+  <div class="kpi"><div class="l">YTD / 1Y</div><div class="v up">+40.1% / +55.5%</div><div class="s">TWR</div></div>
+  <div class="kpi"><div class="l">可用资金</div><div class="v">$402,374</div><div class="s">购买力 $1.61M</div></div>
+  <div class="kpi"><div class="l">7D / MTD</div><div class="v up">+1.70% / +3.90%</div><div class="s">TWR</div></div>
 </section>
 <section class="grid2">
   <div class="card"><h2>资产类别（多头）</h2><div class="chart-box"><canvas id="assetClass"></canvas></div></div>
@@ -73,12 +73,12 @@ footer{margin-top:18px;color:var(--muted);font-size:11px}
 <section class="card" style="margin-bottom:14px">
   <h2>近期收益 TWR</h2>
   <div class="pills" style="margin-bottom:12px">
-    <div class="pill">1D<b class="dn">−0.26%</b></div>
-    <div class="pill">7D<b class="up">+4.61%</b></div>
-    <div class="pill">MTD<b class="up">+4.46%</b></div>
-    <div class="pill">1M<b class="up">+8.25%</b></div>
-    <div class="pill">YTD<b class="up">+40.83%</b></div>
-    <div class="pill">1Y<b class="up">+56.54%</b></div>
+    <div class="pill">1D<b class="dn">−0.41%</b></div>
+    <div class="pill">7D<b class="up">+1.70%</b></div>
+    <div class="pill">MTD<b class="up">+3.90%</b></div>
+    <div class="pill">1M<b class="up">+7.67%</b></div>
+    <div class="pill">YTD<b class="up">+40.08%</b></div>
+    <div class="pill">1Y<b class="up">+55.45%</b></div>
   </div>
   <div class="chart-box" style="height:220px"><canvas id="navChart"></canvas></div>
 </section>
@@ -86,13 +86,13 @@ footer{margin-top:18px;color:var(--muted);font-size:11px}
   <h2>股票 / ETF</h2>
   <div style="overflow-x:auto"><table>
     <thead><tr>
-      <th>标的</th><th>类型</th><th class="r">数量</th><th class="r">现价</th><th class="r">市值</th><th class="r">占 NAV</th><th></th><th class="r">未实现</th><th class="r">当日</th>
+      <th>标的</th><th>类型</th><th class="r">数量</th><th class="r">现价</th><th class="r">市值</th><th class="r">占 NAV</th><th></th><th class="r">成本</th><th class="r">未实现</th><th class="r">当日</th>
     </tr></thead>
     <tbody id="stkBody"></tbody>
   </table></div>
 </section>
 <section class="card" style="margin-bottom:14px">
-  <h2>期权 36 条</h2>
+  <h2>期权 35 条</h2>
   <div class="toolbar">
     <label class="note">排序</label>
     <select id="optSort">
@@ -104,7 +104,7 @@ footer{margin-top:18px;color:var(--muted);font-size:11px}
       <option value="u-desc">未实现 从大到小</option>
       <option value="n-asc">合约名 A-Z</option>
     </select>
-    <span class="note">默认按剩余到期日升序，小于 7 天标橙。点「剩余天数」列也可切换。</span>
+    <span class="note">默认按剩余到期日升序，小于 7 天标橙。</span>
   </div>
   <div style="overflow-x:auto"><table>
     <thead><tr>
@@ -118,31 +118,33 @@ footer{margin-top:18px;color:var(--muted);font-size:11px}
 <section class="grid2">
   <div class="card"><h2>债券</h2>
     <table>
-      <tr><td>RABOBK CORP 6.5% Perpetual</td><td class="r">60 × €111.82</td></tr>
-      <tr><td>市值</td><td class="r">€67,094 ≈ $77,979</td></tr>
+      <tr><td>RABOBK CORP 6.5% Perpetual</td><td class="r">60 × €111.25</td></tr>
+      <tr><td>市值</td><td class="r">€66,750 ≈ $77,647</td></tr>
+      <tr><td>未实现 / 当日</td><td class="r"><span class="up">+€4,124</span> / <span class="dn">−€357</span></td></tr>
     </table>
   </div>
   <div class="card"><h2>现金与杠杆</h2>
     <table>
-      <tr><td>现金 USD（分配）</td><td class="r dn">−$57,547</td></tr>
-      <tr><td>NAV</td><td class="r">$834,507</td></tr>
-      <tr><td>IBKR 杠杆 Gross/NAV</td><td class="r">1.29x</td></tr>
-      <tr><td>期权净市值</td><td class="r dn">≈ −$60.8k</td></tr>
+      <tr><td>现金 USD</td><td class="r dn">−$41,155</td></tr>
+      <tr><td>NAV</td><td class="r">$830,193</td></tr>
+      <tr><td>IBKR 杠杆 Gross/NAV</td><td class="r">1.20x</td></tr>
+      <tr><td>期权净市值</td><td class="r dn">≈ −$59.4k</td></tr>
+      <tr><td>可用资金 / 购买力</td><td class="r">$402k / $1.61M</td></tr>
     </table>
   </div>
 </section>
-<p class="note" style="margin-top:16px">数据来自 IBKR 实时头寸与绩效。账户摘要接口本次暂不可用。</p>
-<footer>menglin-xia/ibkr-alloc-dash</footer>
+<p class="note" style="margin-top:16px">数据来自 IBKR 实时头寸、账户摘要与绩效（TWR）。无交易、无预警。</p>
+<footer>menglin-xia · 快照 2026-09-10</footer>
 </div>
 <script>
-const NAV=834506.85;
-const stocks=[{s:'META',t:'股票',q:225,px:656.03,mv:147605.64,upnl:6948.27,d:9572.64},{s:'QQQ',t:'ETF',q:162,px:715.87,mv:115970.94,upnl:34186.10,d:-403.38},{s:'VOO',t:'ETF',q:146.38,px:700.36,mv:102516.03,upnl:32203.61,d:-543.06},{s:'RKLB',t:'股票',q:1200,px:63.81,mv:76572.00,upnl:-11929.00,d:-2472.00},{s:'GOOG',t:'股票',q:200,px:326.55,mv:65310.00,upnl:4149.80,d:-1766.00},{s:'SMH',t:'ETF',q:100,px:572.93,mv:57293.00,upnl:29843.28,d:-80.00},{s:'LITE',t:'股票',q:50,px:1014.92,mv:50746.00,upnl:3771.45,d:1572.30},{s:'ECHO',t:'股票',q:550,px:90.79,mv:49934.50,upnl:-18852.51,d:-1446.50},{s:'MSFT',t:'股票',q:100,px:491.97,mv:49197.00,upnl:10598.29,d:-198.00},{s:'TSLA',t:'股票',q:100,px:368.52,mv:36852.00,upnl:5605.00,d:36.00},{s:'DRAM',t:'股票',q:560,px:61.76,mv:34585.60,upnl:-3515.80,d:369.60},{s:'CRCL',t:'股票',q:300,px:94.76,mv:28428.00,upnl:5628.00,d:-426.00},{s:'NVDA',t:'股票',q:111,px:224.44,mv:24912.62,upnl:800.23,d:-143.41},{s:'SE',t:'股票',q:200,px:108.97,mv:21794.00,upnl:-4872.67,d:-872.00},{s:'TSEM',t:'股票',q:50,px:219.35,mv:10967.50,upnl:-1383.75,d:-23.50},{s:'MU',t:'股票',q:1,px:1026.40,mv:1026.40,upnl:88.84,d:26.14}];
-const opts=[{"n":"DRAM Sep11'26 60 PUT","side":"空","q":-5,"px":0.68,"mv":-342.42,"u":1842.79,"d":173.43,"exp":"2026-09-11","dte":2},{"n":"DRAM Sep18'26 61 PUT","side":"空","q":-5,"px":2.20,"mv":-1100.00,"u":5384.13,"d":225.80,"exp":"2026-09-18","dte":9},{"n":"GOOG Sep18'26 355 PUT","side":"空","q":-1,"px":28.78,"mv":-2877.59,"u":-901.67,"d":-809.92,"exp":"2026-09-18","dte":9},{"n":"LITE Sep18'26 730 PUT","side":"空","q":-1,"px":0.57,"mv":-57.20,"u":3637.49,"d":87.44,"exp":"2026-09-18","dte":9},{"n":"LITE Sep18'26 790 PUT","side":"空","q":-1,"px":1.58,"mv":-157.77,"u":1946.94,"d":157.13,"exp":"2026-09-18","dte":9},{"n":"MSFT Sep18'26 550 CALL","side":"空","q":-1,"px":0.09,"mv":-9.40,"u":457.81,"d":1.66,"exp":"2026-09-18","dte":9},{"n":"NOW Sep18'26 124 PUT","side":"空","q":-1,"px":1.58,"mv":-158.09,"u":2509.80,"d":-23.68,"exp":"2026-09-18","dte":9},{"n":"QQQ Sep18'26 690 PUT","side":"空","q":-1,"px":2.41,"mv":-241.00,"u":298.95,"d":-43.50,"exp":"2026-09-18","dte":9},{"n":"SE Sep18'26 120 CALL","side":"空","q":-1,"px":0.44,"mv":-44.50,"u":449.44,"d":67.70,"exp":"2026-09-18","dte":9},{"n":"SMH Sep18'26 475 PUT","side":"空","q":-1,"px":0.24,"mv":-24.03,"u":2203.13,"d":3.32,"exp":"2026-09-18","dte":9},{"n":"TTE Sep18'26 90 CALL","side":"空","q":-2,"px":1.99,"mv":-398.90,"u":195.26,"d":-122.90,"exp":"2026-09-18","dte":9},{"n":"CRCL Sep25'26 90 CALL","side":"空","q":-3,"px":9.13,"mv":-2738.06,"u":-1810.14,"d":377.05,"exp":"2026-09-25","dte":16},{"n":"META Sep25'26 520 PUT","side":"空","q":-1,"px":0.37,"mv":-37.16,"u":670.04,"d":35.84,"exp":"2026-09-25","dte":16},{"n":"MU Sep25'26 940 PUT","side":"空","q":-1,"px":17.95,"mv":-1794.65,"u":269.53,"d":700.26,"exp":"2026-09-25","dte":16},{"n":"NVDA Sep25'26 215 PUT","side":"空","q":-1,"px":2.84,"mv":-284.30,"u":-26.07,"d":-23.80,"exp":"2026-09-25","dte":16},{"n":"RKLB Sep25'26 70 PUT","side":"空","q":-3,"px":7.83,"mv":-2348.93,"u":261.94,"d":-417.26,"exp":"2026-09-25","dte":16},{"n":"RKLB Sep25'26 75 PUT","side":"空","q":-2,"px":12.02,"mv":-2403.90,"u":-575.33,"d":-350.78,"exp":"2026-09-25","dte":16},{"n":"AVGO Oct02'26 345 PUT","side":"空","q":-1,"px":6.79,"mv":-679.09,"u":165.12,"d":-107.43,"exp":"2026-10-02","dte":23},{"n":"ECHO Oct02'26 100 CALL","side":"空","q":-3,"px":1.28,"mv":-385.16,"u":213.48,"d":310.39,"exp":"2026-10-02","dte":23},{"n":"GOOG Oct02'26 320 PUT","side":"空","q":-1,"px":6.46,"mv":-646.34,"u":-32.41,"d":-32.41,"exp":"2026-10-02","dte":23},{"n":"NVDA Oct02'26 215 PUT","side":"空","q":-1,"px":3.91,"mv":-391.27,"u":-92.04,"d":-33.77,"exp":"2026-10-02","dte":23},{"n":"NVDA Oct02'26 250 CALL","side":"空","q":-1,"px":1.18,"mv":-118.00,"u":110.22,"d":13.00,"exp":"2026-10-02","dte":23},{"n":"RKLB Oct02'26 60 PUT","side":"空","q":-3,"px":2.65,"mv":-795.63,"u":234.29,"d":-167.07,"exp":"2026-10-02","dte":23},{"n":"META Oct16'26 635 CALL","side":"空","q":-1,"px":46.53,"mv":-4652.84,"u":-3463.63,"d":-2411.32,"exp":"2026-10-16","dte":37},{"n":"META Nov20'26 690 CALL","side":"空","q":-1,"px":40.79,"mv":-4078.60,"u":-1891.43,"d":-1770.25,"exp":"2026-11-20","dte":72},{"n":"ECHO Dec18'26 125 PUT","side":"空","q":-5,"px":34.91,"mv":-17454.15,"u":-4697.93,"d":-1115.70,"exp":"2026-12-18","dte":100},{"n":"LITE Dec18'26 600 PUT","side":"空","q":-1,"px":19.93,"mv":-1993.11,"u":2837.74,"d":160.84,"exp":"2026-12-18","dte":100},{"n":"MU Dec18'26 650 PUT","side":"空","q":-1,"px":12.23,"mv":-1223.37,"u":1829.53,"d":115.69,"exp":"2026-12-18","dte":100},{"n":"SE Dec18'26 160 CALL","side":"空","q":-1,"px":1.42,"mv":-141.69,"u":567.50,"d":62.60,"exp":"2026-12-18","dte":100},{"n":"SMH Dec18'26 450 PUT","side":"空","q":-1,"px":7.70,"mv":-769.51,"u":1967.63,"d":-19.20,"exp":"2026-12-18","dte":100},{"n":"SMH Dec18'26 500 PUT","side":"空","q":-1,"px":16.32,"mv":-1631.87,"u":480.30,"d":-3.64,"exp":"2026-12-18","dte":100},{"n":"TSLA Dec18'26 450 CALL","side":"空","q":-1,"px":12.29,"mv":-1228.96,"u":-1.77,"d":-38.10,"exp":"2026-12-18","dte":100},{"n":"TTE Dec18'26 100 CALL","side":"空","q":-3,"px":1.64,"mv":-493.28,"u":183.17,"d":-80.78,"exp":"2026-12-18","dte":100},{"n":"TTE Dec18'26 90 CALL","side":"空","q":-6,"px":5.13,"mv":-3078.85,"u":-657.33,"d":-279.79,"exp":"2026-12-18","dte":100},{"n":"RKLB Jan15'27 80 CALL","side":"多","q":1,"px":6.77,"mv":677.36,"u":-16.42,"d":-90.14,"exp":"2027-01-15","dte":128},{"n":"RKLB Jun17'27 60 PUT","side":"空","q":-5,"px":13.60,"mv":-6802.16,"u":-814.45,"d":-346.46,"exp":"2027-06-17","dte":281}];
+const NAV=830192.56;
+const stocks=[{"s": "META", "t": "股票", "q": 200, "px": 659.15, "mv": 131830.0, "avg": 625.14, "upnl": 6801.23, "d": 1092.0}, {"s": "QQQ", "t": "ETF", "q": 162, "px": 715.03, "mv": 115834.86, "avg": 504.84, "upnl": 34050.03, "d": -207.36}, {"s": "VOO", "t": "ETF", "q": 146.38, "px": 701.57, "mv": 102693.15, "avg": 480.35, "upnl": 32380.73, "d": 102.46}, {"s": "RKLB", "t": "股票", "q": 1200, "px": 63.21, "mv": 75852.0, "avg": 73.75, "upnl": -12649.0, "d": 168.0}, {"s": "GOOG", "t": "股票", "q": 200, "px": 328.48, "mv": 65696.0, "avg": 305.8, "upnl": 4535.8, "d": 20.0}, {"s": "SMH", "t": "ETF", "q": 100, "px": 570.76, "mv": 57076.0, "avg": 274.5, "upnl": 29626.28, "d": -353.0}, {"s": "ECHO", "t": "股票", "q": 550, "px": 91.53, "mv": 50341.5, "avg": 125.07, "upnl": -18445.51, "d": 115.5}, {"s": "MSFT", "t": "股票", "q": 100, "px": 491.9, "mv": 49190.0, "avg": 385.99, "upnl": 10591.29, "d": 25.0}, {"s": "LITE", "t": "股票", "q": 50, "px": 977.08, "mv": 48854.0, "avg": 939.49, "upnl": 1879.45, "d": -595.0}, {"s": "TSLA", "t": "股票", "q": 100, "px": 366.31, "mv": 36631.0, "avg": 312.47, "upnl": 5384.0, "d": -150.0}, {"s": "DRAM", "t": "股票", "q": 560, "px": 60.7, "mv": 33992.0, "avg": 68.04, "upnl": -4109.4, "d": -492.8}, {"s": "CRCL", "t": "股票", "q": 300, "px": 91.76, "mv": 27528.0, "avg": 76.0, "upnl": 4728.0, "d": -369.0}, {"s": "NVDA", "t": "股票", "q": 111, "px": 223.19, "mv": 24774.09, "avg": 217.23, "upnl": 661.71, "d": -25.53}, {"s": "SE", "t": "股票", "q": 200, "px": 106.93, "mv": 21386.0, "avg": 133.33, "upnl": -5280.67, "d": -356.0}, {"s": "TSEM", "t": "股票", "q": 50, "px": 213.3, "mv": 10665.0, "avg": 247.03, "upnl": -1686.25, "d": -163.5}, {"s": "MU", "t": "股票", "q": 1, "px": 1013.9, "mv": 1013.9, "avg": 937.56, "upnl": 76.34, "d": -13.87}];
+const opts=[{"n": "AVGO Oct02'26 345 PUT", "side": "空", "q": -1, "px": 5.87, "mv": -586.58, "u": 257.64, "d": -19.08, "exp": "2026-10-02", "dte": 22}, {"n": "CRCL Sep25'26 90 CALL", "side": "空", "q": -3, "px": 7.67, "mv": -2302.49, "u": -1374.57, "d": 79.6, "exp": "2026-09-25", "dte": 15}, {"n": "DRAM Sep11'26 60 PUT", "side": "空", "q": -5, "px": 0.62, "mv": -309.36, "u": 1875.86, "d": -24.66, "exp": "2026-09-11", "dte": 1}, {"n": "DRAM Sep18'26 61 PUT", "side": "空", "q": -5, "px": 2.1, "mv": -1051.18, "u": 5432.95, "d": -6.53, "exp": "2026-09-18", "dte": 8}, {"n": "ECHO Dec18'26 125 PUT", "side": "空", "q": -5, "px": 34.36, "mv": -17182.1, "u": -4425.88, "d": -92.7, "exp": "2026-12-18", "dte": 99}, {"n": "ECHO Oct02'26 100 CALL", "side": "空", "q": -3, "px": 1.36, "mv": -407.84, "u": 190.79, "d": -25.43, "exp": "2026-10-02", "dte": 22}, {"n": "GOOG Oct02'26 320 PUT", "side": "空", "q": -1, "px": 5.62, "mv": -562.0, "u": 51.93, "d": -26.99, "exp": "2026-10-02", "dte": 22}, {"n": "GOOG Sep18'26 355 PUT", "side": "空", "q": -1, "px": 26.93, "mv": -2693.09, "u": -717.17, "d": 14.01, "exp": "2026-09-18", "dte": 8}, {"n": "LITE Dec18'26 600 PUT", "side": "空", "q": -1, "px": 18.09, "mv": -1808.95, "u": 3021.9, "d": -29.53, "exp": "2026-12-18", "dte": 99}, {"n": "LITE Sep18'26 730 PUT", "side": "空", "q": -1, "px": 0.58, "mv": -58.17, "u": 3636.52, "d": 13.5, "exp": "2026-09-18", "dte": 8}, {"n": "LITE Sep18'26 790 PUT", "side": "空", "q": -1, "px": 1.74, "mv": -174.15, "u": 1930.56, "d": -1.2, "exp": "2026-09-18", "dte": 8}, {"n": "META Nov20'26 690 CALL", "side": "空", "q": -1, "px": 38.64, "mv": -3864.43, "u": -1677.26, "d": 8.95, "exp": "2026-11-20", "dte": 71}, {"n": "META Oct16'26 635 CALL", "side": "空", "q": -1, "px": 43.72, "mv": -4371.71, "u": -3182.5, "d": 14.92, "exp": "2026-10-16", "dte": 36}, {"n": "MSFT Sep18'26 550 CALL", "side": "空", "q": -1, "px": 0.1, "mv": -10.42, "u": 456.78, "d": -0.92, "exp": "2026-09-18", "dte": 8}, {"n": "MU Dec18'26 650 PUT", "side": "空", "q": -1, "px": 11.07, "mv": -1106.98, "u": 1945.92, "d": -29.35, "exp": "2026-12-18", "dte": 99}, {"n": "MU Sep25'26 940 PUT", "side": "空", "q": -1, "px": 15.57, "mv": -1557.31, "u": 506.88, "d": -25.04, "exp": "2026-09-25", "dte": 15}, {"n": "NOW Sep18'26 124 PUT", "side": "空", "q": -1, "px": 1.66, "mv": -166.04, "u": 2501.85, "d": -0.65, "exp": "2026-09-18", "dte": 8}, {"n": "NVDA Oct02'26 215 PUT", "side": "空", "q": -1, "px": 3.96, "mv": -395.59, "u": -96.36, "d": -3.09, "exp": "2026-10-02", "dte": 22}, {"n": "NVDA Oct02'26 250 CALL", "side": "空", "q": -1, "px": 1.04, "mv": -103.76, "u": 124.46, "d": -1.26, "exp": "2026-10-02", "dte": 22}, {"n": "NVDA Sep25'26 215 PUT", "side": "空", "q": -1, "px": 2.92, "mv": -291.62, "u": -33.4, "d": -6.12, "exp": "2026-09-25", "dte": 15}, {"n": "QQQ Sep18'26 690 PUT", "side": "空", "q": -1, "px": 2.21, "mv": -221.39, "u": 318.56, "d": 3.31, "exp": "2026-09-18", "dte": 8}, {"n": "RKLB Jan15'27 80 CALL", "side": "多", "q": 1, "px": 6.55, "mv": 654.69, "u": -39.09, "d": -5.31, "exp": "2027-01-15", "dte": 127}, {"n": "RKLB Jun17'27 60 PUT", "side": "空", "q": -5, "px": 13.86, "mv": -6927.75, "u": -940.04, "d": -35.0, "exp": "2027-06-17", "dte": 280}, {"n": "RKLB Oct02'26 60 PUT", "side": "空", "q": -3, "px": 2.84, "mv": -850.92, "u": 179.0, "d": -71.61, "exp": "2026-10-02", "dte": 22}, {"n": "RKLB Sep25'26 70 PUT", "side": "空", "q": -3, "px": 8.27, "mv": -2482.26, "u": 128.61, "d": -83.46, "exp": "2026-09-25", "dte": 15}, {"n": "RKLB Sep25'26 75 PUT", "side": "空", "q": -2, "px": 12.57, "mv": -2514.2, "u": -685.62, "d": -35.2, "exp": "2026-09-25", "dte": 15}, {"n": "SE Dec18'26 160 CALL", "side": "空", "q": -1, "px": 1.4, "mv": -140.47, "u": 568.72, "d": -3.47, "exp": "2026-12-18", "dte": 99}, {"n": "SE Sep18'26 120 CALL", "side": "空", "q": -1, "px": 0.38, "mv": -37.79, "u": 456.15, "d": -0.79, "exp": "2026-09-18", "dte": 8}, {"n": "SMH Dec18'26 450 PUT", "side": "空", "q": -1, "px": 7.21, "mv": -720.77, "u": 2016.37, "d": -12.72, "exp": "2026-12-18", "dte": 99}, {"n": "SMH Dec18'26 500 PUT", "side": "空", "q": -1, "px": 15.29, "mv": -1528.54, "u": 583.63, "d": -11.91, "exp": "2026-12-18", "dte": 99}, {"n": "SMH Sep18'26 475 PUT", "side": "空", "q": -1, "px": 0.13, "mv": -12.89, "u": 2214.26, "d": 1.07, "exp": "2026-09-18", "dte": 8}, {"n": "TSLA Dec18'26 450 CALL", "side": "空", "q": -1, "px": 12.12, "mv": -1211.74, "u": 15.45, "d": -4.9, "exp": "2026-12-18", "dte": 99}, {"n": "TTE Dec18'26 100 CALL", "side": "空", "q": -3, "px": 1.83, "mv": -549.74, "u": 126.71, "d": -2.24, "exp": "2026-12-18", "dte": 99}, {"n": "TTE Dec18'26 90 CALL", "side": "空", "q": -6, "px": 5.62, "mv": -3369.4, "u": -947.88, "d": 25.94, "exp": "2026-12-18", "dte": 99}, {"n": "TTE Sep18'26 90 CALL", "side": "空", "q": -2, "px": 2.63, "mv": -526.2, "u": 67.96, "d": -27.98, "exp": "2026-09-18", "dte": 8}];
 const fmt2=n=>n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 const money=n=>(n<0?'\u2212$':'$')+fmt2(Math.abs(n));
 const cls=n=>n>0.5?'up':n<-0.5?'dn':'';
 const tb=document.getElementById('stkBody'), maxW=stocks[0].mv/NAV;
-stocks.forEach(x=>{const w=x.mv/NAV;tb.insertAdjacentHTML('beforeend',`<tr><td><b>${x.s}</b></td><td><span class="tag ${x.t==='ETF'?'etf':''}">${x.t}</span></td><td class="r">${x.q}</td><td class="r">${fmt2(x.px)}</td><td class="r">$${fmt2(x.mv)}</td><td class="r">${(w*100).toFixed(1)}%</td><td><div class="bar"><i style="width:${(w/maxW*100).toFixed(1)}%"></i></div></td><td class="r ${cls(x.upnl)}">${money(x.upnl)}</td><td class="r ${cls(x.d)}">${money(x.d)}</td></tr>`)});
+stocks.forEach(x=>{const w=x.mv/NAV;tb.insertAdjacentHTML('beforeend',`<tr><td><b>${x.s}</b></td><td><span class="tag ${x.t==='ETF'?'etf':''}">${x.t}</span></td><td class="r">${x.q}</td><td class="r">${fmt2(x.px)}</td><td class="r">$${fmt2(x.mv)}</td><td class="r">${(w*100).toFixed(1)}%</td><td><div class="bar"><i style="width:${(w/maxW*100).toFixed(1)}%"></i></div></td><td class="r">${fmt2(x.avg)}</td><td class="r ${cls(x.upnl)}">${money(x.upnl)}</td><td class="r ${cls(x.d)}">${money(x.d)}</td></tr>`)});
 function renderOpts(list){
   const ob=document.getElementById('optBody'); ob.innerHTML='';
   list.forEach(o=>{
@@ -168,11 +170,11 @@ document.getElementById('thDte').addEventListener('click', ()=>{
 sortOpts('dte-asc');
 const colors=['#5b8cff','#44d7e8','#f5c542','#b388ff','#ff9f43','#3ddc97','#ff6b7a'];
 const donut=(id,labels,data)=>new Chart(document.getElementById(id),{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:colors,borderColor:'#161e3a',borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{color:'#cdd6f0',boxWidth:12,font:{size:11}}}},cutout:'58%'}});
-donut('assetClass',['权益','固定收益','现金'],[874567,77979,914]);
-donut('instrument',['个股','ETF','债券','期权净空头'],[563436,310447,77979,60841]);
-donut('sector',['科技','宽基','电信','工业','金融','周期消费'],[328932,218535,212945,77303,77979,36851]);
-donut('region',['北美','欧洲','亚洲'],[841944,78885,32756]);
-donut('country',['美国','荷兰','新加坡','以色列'],[841944,77979,21782,10974]);
-new Chart(document.getElementById('navChart'),{type:'line',data:{labels:['08-07','08-14','08-21','08-28','09-02','09-04','09-08','09-09'],datasets:[{label:'NAV',data:[747083,792255,768849,786286,797701,824633,836709,834507],borderColor:'#5b8cff',backgroundColor:'rgba(91,140,255,.18)',fill:true,tension:.35,pointRadius:3}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#93a0c2'},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#93a0c2',callback:v=>'$'+(v/1000).toFixed(0)+'k'},grid:{color:'rgba(255,255,255,.06)'}}}}});
+donut('assetClass',['权益','固定收益','现金'],[853818,77658,971]);
+donut('instrument',['个股','ETF','债券','期权净空头'],[543562,309593,77658,59443]);
+donut('sector',['科技','宽基','电信','金融','工业','周期消费'],[324582,218527,197574,77658,76515,36620]);
+donut('region',['北美','欧洲','亚洲'],[821936,78603,32041]);
+donut('country',['美国','荷兰','新加坡','以色列'],[821936,77658,21360,10681]);
+new Chart(document.getElementById('navChart'),{type:'line',data:{labels:['08-07','08-14','08-21','08-28','09-02','09-04','09-08','09-10'],datasets:[{label:'NAV',data:[747083,792255,768849,786286,797701,824633,836709,830193],borderColor:'#5b8cff',backgroundColor:'rgba(91,140,255,.18)',fill:true,tension:.35,pointRadius:3}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#93a0c2'},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#93a0c2',callback:v=>'$'+(v/1000).toFixed(0)+'k'},grid:{color:'rgba(255,255,255,.06)'}}}}});
 </script>
 </body></html>
