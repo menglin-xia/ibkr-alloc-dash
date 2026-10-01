@@ -47,10 +47,10 @@ th, td { padding: 8px 6px; text-align: right; border-bottom: 1px solid var(--bor
 th { color: var(--muted); font-weight: 500; text-align: right; }
 td:first-child, th:first-child { text-align: left; }
 .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-.bar-label { width: 160px; font-size: 0.85rem; flex-shrink: 0; }
+.bar-label { width: 180px; font-size: 0.85rem; flex-shrink: 0; }
 .bar-track { flex: 1; height: 10px; background: #243044; border-radius: 5px; overflow: hidden; }
 .bar-fill { height: 100%; border-radius: 5px; background: var(--accent); }
-.bar-val { width: 130px; text-align: right; font-size: 0.85rem; flex-shrink: 0; }
+.bar-val { width: 150px; text-align: right; font-size: 0.85rem; flex-shrink: 0; }
 .perf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .perf-item { text-align: center; padding: 10px; background: #243044; border-radius: 8px; }
 .perf-item .label { font-size: 0.75rem; color: var(--muted); }
@@ -59,62 +59,63 @@ footer { margin-top: 24px; text-align: center; color: var(--muted); font-size: 0
 @media (max-width: 600px) {
   .perf-grid { grid-template-columns: repeat(2, 1fr); }
   .bar-label { width: 100px; }
-  .bar-val { width: 100px; }
+  .bar-val { width: 110px; }
 }
 </style>
 </head>
 <body>
 <h1>IBKR 投资组合仪表盘</h1>
-<p class="subtitle">更新时间：2026-10-01 10:07 UTC · 基础货币 USD · TWR · 无交易 / 无警报</p>
+<p class="subtitle">更新时间：2026-10-01 14:06 UTC（16:06 CEST）· 基础货币 USD · TWR · 只读快照 · 无交易 / 无警报</p>
 
 <div class="grid grid-4" style="margin-bottom:16px">
   <div class="card">
     <div class="metric-label">净资产 (Net Liquidation)</div>
-    <div class="metric">$884,449</div>
+    <div class="metric">$879,060</div>
   </div>
   <div class="card">
     <div class="metric-label">含贷款权益 (ELV)</div>
-    <div class="metric">$920,937</div>
+    <div class="metric">$924,544</div>
   </div>
   <div class="card">
     <div class="metric-label">未实现盈亏</div>
-    <div class="metric pos">$156,770</div>
+    <div class="metric pos">$151,264</div>
   </div>
   <div class="card">
     <div class="metric-label">杠杆</div>
-    <div class="metric">1.14x</div>
+    <div class="metric">1.17x</div>
   </div>
 </div>
 
 <div class="grid grid-4" style="margin-bottom:16px">
   <div class="card">
     <div class="metric-label">可用资金</div>
-    <div class="metric">$468,678</div>
+    <div class="metric">$426,048</div>
   </div>
   <div class="card">
     <div class="metric-label">购买力</div>
-    <div class="metric">$1,880,197</div>
+    <div class="metric">$1,709,590</div>
   </div>
   <div class="card">
     <div class="metric-label">总持仓市值</div>
-    <div class="metric">$1,013,197</div>
+    <div class="metric">$1,027,967</div>
   </div>
   <div class="card">
     <div class="metric-label">现金余额</div>
-    <div class="metric neg">$-32,946</div>
+    <div class="metric neg">$-34,321</div>
   </div>
 </div>
 
 <div class="card" style="margin-bottom:16px">
   <h2>业绩表现 (TWR)</h2>
   <div class="perf-grid">
-    <div class="perf-item"><div class="label">1日</div><div class="val pos">+0.84%</div></div>
-    <div class="perf-item"><div class="label">7日</div><div class="val pos">+0.55%</div></div>
-    <div class="perf-item"><div class="label">本月 (MTD)</div><div class="val pos">+10.71%</div></div>
-    <div class="perf-item"><div class="label">1个月</div><div class="val pos">+10.71%</div></div>
-    <div class="perf-item"><div class="label">今年至今 (YTD)</div><div class="val pos">+49.26%</div></div>
-    <div class="perf-item"><div class="label">近1年</div><div class="val pos">+58.90%</div></div>
+    <div class="perf-item"><div class="label">1日</div><div class="val pos">+0.02%</div></div>
+    <div class="perf-item"><div class="label">7日</div><div class="val neg">-0.26%</div></div>
+    <div class="perf-item"><div class="label">本月 (MTD)</div><div class="val pos">+9.81%</div></div>
+    <div class="perf-item"><div class="label">1个月</div><div class="val pos">+9.81%</div></div>
+    <div class="perf-item"><div class="label">今年至今 (YTD)</div><div class="val pos">+48.04%</div></div>
+    <div class="perf-item"><div class="label">近1年</div><div class="val pos">+57.61%</div></div>
   </div>
+  <p class="subtitle" style="margin:12px 0 0">业绩序列截至 2026-10-01，期末净值 $877,269；实时净资产 $879,060，略高于序列末点。</p>
 </div>
 
 <div class="grid grid-2" style="margin-bottom:16px">
@@ -122,23 +123,23 @@ footer { margin-top: 24px; text-align: center; color: var(--muted); font-size: 0
     <h2>资产类别分配（多头）</h2>
     <div class="bar-row">
       <div class="bar-label">股票 Stocks</div>
-      <div class="bar-track"><div class="bar-fill" style="width:59.34%;background:var(--accent)"></div></div>
-      <div class="bar-val">59.34% · $572,908</div>
+      <div class="bar-track"><div class="bar-fill" style="width:59.72%;background:var(--accent)"></div></div>
+      <div class="bar-val">59.72% · $579,198</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">ETF</div>
-      <div class="bar-track"><div class="bar-fill" style="width:32.98%;background:var(--accent)"></div></div>
-      <div class="bar-val">32.98% · $318,399</div>
+      <div class="bar-track"><div class="bar-fill" style="width:32.63%;background:var(--accent)"></div></div>
+      <div class="bar-val">32.63% · $316,434</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">债券 Bonds</div>
-      <div class="bar-track"><div class="bar-fill" style="width:7.57%;background:var(--accent)"></div></div>
-      <div class="bar-val">7.57% · $73,076</div>
+      <div class="bar-track"><div class="bar-fill" style="width:7.55%;background:var(--accent)"></div></div>
+      <div class="bar-val">7.55% · $73,212</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">期权 Options</div>
-      <div class="bar-track"><div class="bar-fill" style="width:0.09%;background:var(--accent)"></div></div>
-      <div class="bar-val">0.09% · $851</div>
+      <div class="bar-track"><div class="bar-fill" style="width:0.08%;background:var(--accent)"></div></div>
+      <div class="bar-val">0.08% · $818</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">现金 Cash</div>
@@ -150,18 +151,18 @@ footer { margin-top: 24px; text-align: center; color: var(--muted); font-size: 0
     <h2>地区分配（多头）</h2>
     <div class="bar-row">
       <div class="bar-label">北美 North America</div>
-      <div class="bar-track"><div class="bar-fill" style="width:89.10%;background:var(--accent)"></div></div>
-      <div class="bar-val">89.10% · $861,214</div>
+      <div class="bar-track"><div class="bar-fill" style="width:89.16%;background:var(--accent)"></div></div>
+      <div class="bar-val">89.16% · $865,721</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">欧洲 Europe</div>
-      <div class="bar-track"><div class="bar-fill" style="width:7.68%;background:var(--accent)"></div></div>
-      <div class="bar-val">7.68% · $74,248</div>
+      <div class="bar-track"><div class="bar-fill" style="width:7.66%;background:var(--accent)"></div></div>
+      <div class="bar-val">7.66% · $74,386</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">亚洲 Asia</div>
-      <div class="bar-track"><div class="bar-fill" style="width:3.21%;background:var(--accent)"></div></div>
-      <div class="bar-val">3.21% · $31,074</div>
+      <div class="bar-track"><div class="bar-fill" style="width:3.18%;background:var(--accent)"></div></div>
+      <div class="bar-val">3.18% · $30,860</div>
     </div>
   </div>
 </div>
@@ -170,43 +171,43 @@ footer { margin-top: 24px; text-align: center; color: var(--muted); font-size: 0
   <h2>行业分配（多头）</h2>
     <div class="bar-row">
       <div class="bar-label">科技 Technology</div>
-      <div class="bar-track"><div class="bar-fill" style="width:33.79%;background:var(--accent)"></div></div>
-      <div class="bar-val">33.79% · $326,633</div>
+      <div class="bar-track"><div class="bar-fill" style="width:33.67%;background:var(--accent)"></div></div>
+      <div class="bar-val">33.67% · $326,916</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">广泛 Broad</div>
-      <div class="bar-track"><div class="bar-fill" style="width:23.07%;background:var(--accent)"></div></div>
-      <div class="bar-val">23.07% · $223,006</div>
+      <div class="bar-track"><div class="bar-fill" style="width:22.87%;background:var(--accent)"></div></div>
+      <div class="bar-val">22.87% · $222,060</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">电信 Telecomm</div>
-      <div class="bar-track"><div class="bar-fill" style="width:22.18%;background:var(--accent)"></div></div>
-      <div class="bar-val">22.18% · $214,343</div>
+      <div class="bar-track"><div class="bar-fill" style="width:21.89%;background:var(--accent)"></div></div>
+      <div class="bar-val">21.89% · $212,580</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">工业 Industrial</div>
-      <div class="bar-track"><div class="bar-fill" style="width:8.98%;background:var(--accent)"></div></div>
-      <div class="bar-val">8.98% · $86,819</div>
+      <div class="bar-track"><div class="bar-fill" style="width:8.81%;background:var(--accent)"></div></div>
+      <div class="bar-val">8.81% · $85,565</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">金融 Financials</div>
-      <div class="bar-track"><div class="bar-fill" style="width:7.56%;background:var(--accent)"></div></div>
-      <div class="bar-val">7.56% · $73,076</div>
+      <div class="bar-track"><div class="bar-fill" style="width:7.54%;background:var(--accent)"></div></div>
+      <div class="bar-val">7.54% · $73,212</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">消费周期 Consumer Cyclicals</div>
-      <div class="bar-track"><div class="bar-fill" style="width:3.68%;background:var(--accent)"></div></div>
-      <div class="bar-val">3.68% · $35,568</div>
+      <div class="bar-track"><div class="bar-fill" style="width:3.65%;background:var(--accent)"></div></div>
+      <div class="bar-val">3.65% · $35,470</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">医疗 Healthcare</div>
-      <div class="bar-track"><div class="bar-fill" style="width:0.60%;background:var(--accent)"></div></div>
-      <div class="bar-val">0.60% · $5,790</div>
+      <div class="bar-track"><div class="bar-fill" style="width:1.43%;background:var(--accent)"></div></div>
+      <div class="bar-val">1.43% · $13,858</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">现金 Cash</div>
       <div class="bar-track"><div class="bar-fill" style="width:0.13%;background:var(--accent)"></div></div>
-      <div class="bar-val">0.13% · $1,303</div>
+      <div class="bar-val">0.13% · $1,304</div>
     </div>
 </div>
 
@@ -220,25 +221,26 @@ footer { margin-top: 24px; text-align: center; color: var(--muted); font-size: 0
       </tr>
     </thead>
     <tbody>
-<tr><td>META</td><td>200.13</td><td>723.16</td><td class="pos">$144,726</td><td class="pos">$19,603</td><td class="neg">-$404</td><td>STK</td></tr>
-<tr><td>QQQ</td><td>162</td><td>742.60</td><td class="pos">$120,301</td><td class="pos">$38,516</td><td class="pos">$458</td><td>STK</td></tr>
-<tr><td>VOO</td><td>146.38</td><td>701.64</td><td class="pos">$102,703</td><td class="pos">$32,391</td><td class="pos">$114</td><td>STK</td></tr>
-<tr><td>RKLB</td><td>1,200</td><td>71.60</td><td class="pos">$85,920</td><td class="neg">-$2,581</td><td class="pos">$2,304</td><td>STK</td></tr>
-<tr><td>GOOG</td><td>200.12</td><td>347.89</td><td class="pos">$69,618</td><td class="pos">$8,418</td><td class="pos">$1,431</td><td>STK</td></tr>
-<tr><td>RABOBK 6.5% Perp</td><td>60</td><td>108.04</td><td class="pos">€64,826</td><td class="pos">$2,200</td><td class="neg">-$115</td><td>BOND</td></tr>
-<tr><td>SMH</td><td>100</td><td>613.17</td><td class="pos">$61,317</td><td class="pos">$33,867</td><td class="pos">$417</td><td>STK</td></tr>
-<tr><td>MSFT</td><td>100.20</td><td>512.37</td><td class="pos">$51,339</td><td class="pos">$12,642</td><td class="neg">-$53</td><td>STK</td></tr>
-<tr><td>ECHO</td><td>550</td><td>89.95</td><td class="pos">$49,472</td><td class="neg">-$19,315</td><td class="pos">$297</td><td>STK</td></tr>
-<tr><td>LITE</td><td>40</td><td>977.76</td><td class="pos">$39,110</td><td class="pos">$1,531</td><td class="pos">$260</td><td>STK</td></tr>
-<tr><td>TSLA</td><td>100</td><td>355.59</td><td class="pos">$35,559</td><td class="pos">$4,312</td><td class="pos">$78</td><td>STK</td></tr>
-<tr><td>DRAM</td><td>560</td><td>60.87</td><td class="pos">$34,087</td><td class="neg">-$4,014</td><td class="pos">$286</td><td>STK</td></tr>
-<tr><td>NVDA</td><td>111</td><td>230.15</td><td class="pos">$25,547</td><td class="pos">$1,434</td><td class="pos">$196</td><td>STK</td></tr>
-<tr><td>CRCL</td><td>300</td><td>81.72</td><td class="pos">$24,516</td><td class="pos">$1,716</td><td class="neg">-$135</td><td>STK</td></tr>
-<tr><td>SE</td><td>200</td><td>96.98</td><td class="pos">$19,396</td><td class="neg">-$7,271</td><td class="neg">-$76</td><td>STK</td></tr>
-<tr><td>TSEM</td><td>50</td><td>237.00</td><td class="pos">$11,850</td><td class="neg">-$501</td><td class="pos">$478</td><td>STK</td></tr>
-<tr><td>AMD</td><td>15</td><td>615.90</td><td class="pos">$9,238</td><td class="pos">$95</td><td class="pos">$62</td><td>STK</td></tr>
-<tr><td>TWST</td><td>30</td><td>192.00</td><td class="pos">$5,760</td><td class="pos">$316</td><td class="neg">-$37</td><td>STK</td></tr>
-<tr><td>MU</td><td>1</td><td>1,058.61</td><td class="pos">$1,059</td><td class="pos">$121</td><td class="neg">-$6</td><td>STK</td></tr>
+<tr><td>META</td><td>200.13</td><td>722.63</td><td class="pos">$144,620</td><td class="pos">$19,497</td><td class="neg">-$510</td><td>STK</td></tr>
+<tr><td>QQQ</td><td>162</td><td>738.01</td><td class="pos">$119,558</td><td class="pos">$37,773</td><td class="neg">-$285</td><td>STK</td></tr>
+<tr><td>VOO</td><td>146.72</td><td>698.66</td><td class="pos">$102,506</td><td class="pos">$31,953</td><td class="neg">-$325</td><td>STK</td></tr>
+<tr><td>RKLB</td><td>1,200</td><td>70.64</td><td class="pos">$84,768</td><td class="neg">-$3,733</td><td class="pos">$1,152</td><td>STK</td></tr>
+<tr><td>GOOG</td><td>200.12</td><td>339.55</td><td class="pos">$67,949</td><td class="pos">$6,749</td><td class="neg">-$238</td><td>STK</td></tr>
+<tr><td>RABOBK 6.5% Perp</td><td>60</td><td>108.09</td><td class="pos">€64,855</td><td class="pos">$2,229</td><td class="neg">-$86</td><td>BOND</td></tr>
+<tr><td>SMH</td><td>100</td><td>608.97</td><td class="pos">$60,897</td><td class="pos">$33,447</td><td class="neg">-$3</td><td>STK</td></tr>
+<tr><td>MSFT</td><td>100.20</td><td>517.68</td><td class="pos">$51,871</td><td class="pos">$13,174</td><td class="pos">$479</td><td>STK</td></tr>
+<tr><td>ECHO</td><td>550</td><td>88.63</td><td class="pos">$48,746</td><td class="neg">-$20,041</td><td class="neg">-$429</td><td>STK</td></tr>
+<tr><td>LITE</td><td>40</td><td>1,014.98</td><td class="pos">$40,599</td><td class="pos">$3,020</td><td class="pos">$1,749</td><td>STK</td></tr>
+<tr><td>TSLA</td><td>100</td><td>354.79</td><td class="pos">$35,479</td><td class="pos">$4,232</td><td class="neg">-$2</td><td>STK</td></tr>
+<tr><td>DRAM</td><td>560</td><td>59.80</td><td class="pos">$33,488</td><td class="neg">-$4,613</td><td class="neg">-$314</td><td>STK</td></tr>
+<tr><td>NVDA</td><td>111</td><td>230.23</td><td class="pos">$25,556</td><td class="pos">$1,443</td><td class="pos">$205</td><td>STK</td></tr>
+<tr><td>CRCL</td><td>300</td><td>82.79</td><td class="pos">$24,837</td><td class="pos">$2,037</td><td class="pos">$186</td><td>STK</td></tr>
+<tr><td>SE</td><td>200</td><td>95.30</td><td class="pos">$19,060</td><td class="neg">-$7,607</td><td class="neg">-$412</td><td>STK</td></tr>
+<tr><td>TSEM</td><td>50</td><td>236.10</td><td class="pos">$11,805</td><td class="neg">-$546</td><td class="pos">$434</td><td>STK</td></tr>
+<tr><td>AMD</td><td>15</td><td>602.99</td><td class="pos">$9,045</td><td class="neg">-$99</td><td class="neg">-$132</td><td>STK</td></tr>
+<tr><td>KOD</td><td>80</td><td>99.69</td><td class="pos">$7,975</td><td class="pos">$14</td><td class="pos">$14</td><td>STK</td></tr>
+<tr><td>TWST</td><td>30</td><td>196.31</td><td class="pos">$5,889</td><td class="pos">$445</td><td class="pos">$92</td><td>STK</td></tr>
+<tr><td>MU</td><td>1</td><td>1,031.62</td><td class="pos">$1,032</td><td class="pos">$94</td><td class="neg">-$33</td><td>STK</td></tr>
     </tbody>
   </table>
   </div>
@@ -248,30 +250,30 @@ footer { margin-top: 24px; text-align: center; color: var(--muted); font-size: 0
   <div class="card">
     <h2>保证金与风险</h2>
     <table>
-      <tr><td>初始保证金</td><td>$459,358</td></tr>
-      <tr><td>维持保证金</td><td>$446,844</td></tr>
-      <tr><td>超额流动性</td><td class="pos">$481,275</td></tr>
+      <tr><td>初始保证金</td><td>$505,639</td></tr>
+      <tr><td>维持保证金</td><td>$493,083</td></tr>
+      <tr><td>超额流动性</td><td class="pos">$438,678</td></tr>
       <tr><td>股息</td><td>$131</td></tr>
       <tr><td>EUR 现金</td><td>€975</td></tr>
-      <tr><td>USD 现金</td><td class="neg">$-34,045</td></tr>
+      <tr><td>USD 现金</td><td class="neg">$-35,422</td></tr>
     </table>
   </div>
   <div class="card">
     <h2>空头分配（金融工具）</h2>
     <div class="bar-row">
       <div class="bar-label">期权 Options</div>
-      <div class="bar-track"><div class="bar-fill" style="width:55.13%;background:var(--red)"></div></div>
-      <div class="bar-val">55.13% · -$44,655</div>
+      <div class="bar-track"><div class="bar-fill" style="width:58.82%;background:var(--red)"></div></div>
+      <div class="bar-val">58.82% · -$54,470</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">现金 Cash</div>
-      <div class="bar-track"><div class="bar-fill" style="width:40.89%;background:var(--red)"></div></div>
-      <div class="bar-val">40.89% · -$33,121</div>
+      <div class="bar-track"><div class="bar-fill" style="width:37.25%;background:var(--red)"></div></div>
+      <div class="bar-val">37.25% · -$34,497</div>
     </div>
     <div class="bar-row">
       <div class="bar-label">期货期权 FOP</div>
-      <div class="bar-track"><div class="bar-fill" style="width:3.98%;background:var(--red)"></div></div>
-      <div class="bar-val">3.98% · -$3,223</div>
+      <div class="bar-track"><div class="bar-fill" style="width:3.92%;background:var(--red)"></div></div>
+      <div class="bar-val">3.92% · -$3,632</div>
     </div>
   </div>
 </div>
