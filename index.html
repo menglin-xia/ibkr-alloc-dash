@@ -6,199 +6,142 @@
 <title>IBKR 投资组合仪表盘</title>
 <style>
 :root {
-  --bg: #0f1419;
-  --card: #1a2332;
-  --border: #2d3a4f;
-  --text: #e7ecf3;
-  --muted: #8b9bb4;
-  --accent: #3b82f6;
-  --green: #22c55e;
-  --red: #ef4444;
-  --yellow: #eab308;
+  --bg: #0f1419; --card: #1a2332; --border: #2d3a4f; --text: #e7ecf3; --muted: #8b9bb4;
+  --accent: #3b82f6; --green: #22c55e; --red: #ef4444; --yellow: #eab308;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.5;
-  padding: 16px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; padding: 16px; max-width: 1200px; margin: 0 auto; }
 h1 { font-size: 1.6rem; margin-bottom: 4px; }
 .subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; }
 .grid { display: grid; gap: 16px; }
 .grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
-}
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
 .card h2 { font-size: 1rem; color: var(--muted); margin-bottom: 12px; font-weight: 600; }
 .metric { font-size: 1.5rem; font-weight: 700; }
 .metric-label { font-size: 0.8rem; color: var(--muted); }
-.pos { color: var(--green); }
-.neg { color: var(--red); }
+.pos { color: var(--green); } .neg { color: var(--red); }
 table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
 th, td { padding: 8px 6px; text-align: right; border-bottom: 1px solid var(--border); }
-th { color: var(--muted); font-weight: 500; text-align: right; }
+th { color: var(--muted); font-weight: 500; }
 td:first-child, th:first-child { text-align: left; }
 .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
 .bar-label { width: 180px; font-size: 0.85rem; flex-shrink: 0; }
 .bar-track { flex: 1; height: 10px; background: #243044; border-radius: 5px; overflow: hidden; }
 .bar-fill { height: 100%; border-radius: 5px; background: var(--accent); }
-.bar-val { width: 150px; text-align: right; font-size: 0.85rem; flex-shrink: 0; }
+.bar-val { width: 160px; text-align: right; font-size: 0.85rem; flex-shrink: 0; }
 .perf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .perf-item { text-align: center; padding: 10px; background: #243044; border-radius: 8px; }
 .perf-item .label { font-size: 0.75rem; color: var(--muted); }
 .perf-item .val { font-size: 1.1rem; font-weight: 700; }
 footer { margin-top: 24px; text-align: center; color: var(--muted); font-size: 0.8rem; }
-@media (max-width: 600px) {
-  .perf-grid { grid-template-columns: repeat(2, 1fr); }
-  .bar-label { width: 100px; }
-  .bar-val { width: 110px; }
-}
+@media (max-width: 600px) { .perf-grid { grid-template-columns: repeat(2, 1fr); } .bar-label { width: 100px; } .bar-val { width: 110px; } }
 </style>
 </head>
 <body>
 <h1>IBKR 投资组合仪表盘</h1>
-<p class="subtitle">更新时间：2026-10-02 10:10 UTC（12:10 CEST）· 基础货币 USD · TWR · 只读快照 · 无交易 / 无警报</p>
-
+<p class="subtitle">更新时间：2026-10-02 14:09 UTC（16:09 CEST）· 基础货币 USD · TWR · 只读快照 · 无交易 / 无警报</p>
 <div class="grid grid-4" style="margin-bottom:16px">
-  <div class="card">
-    <div class="metric-label">净资产 (Net Liquidation)</div>
-    <div class="metric">$891,426</div>
-  </div>
-  <div class="card">
-    <div class="metric-label">含贷款权益 (ELV)</div>
-    <div class="metric">$932,868</div>
-  </div>
-  <div class="card">
-    <div class="metric-label">未实现盈亏</div>
-    <div class="metric pos">$161,859</div>
-  </div>
-  <div class="card">
-    <div class="metric-label">杠杆</div>
-    <div class="metric">1.15x</div>
-  </div>
+  <div class="card"><div class="metric-label">净资产 (Net Liquidation)</div><div class="metric">$907,785</div></div>
+  <div class="card"><div class="metric-label">含贷款权益 (ELV)</div><div class="metric">$946,391</div></div>
+  <div class="card"><div class="metric-label">未实现盈亏</div><div class="metric pos">$178,432</div></div>
+  <div class="card"><div class="metric-label">杠杆</div><div class="metric">1.15x</div></div>
 </div>
-
 <div class="grid grid-4" style="margin-bottom:16px">
-  <div class="card">
-    <div class="metric-label">可用资金</div>
-    <div class="metric">$457,207</div>
-  </div>
-  <div class="card">
-    <div class="metric-label">购买力</div>
-    <div class="metric">$1,834,286</div>
-  </div>
-  <div class="card">
-    <div class="metric-label">总持仓市值</div>
-    <div class="metric">$1,028,723</div>
-  </div>
-  <div class="card">
-    <div class="metric-label">现金余额</div>
-    <div class="metric neg">$-31,291</div>
-  </div>
+  <div class="card"><div class="metric-label">可用资金</div><div class="metric">$464,736</div></div>
+  <div class="card"><div class="metric-label">购买力</div><div class="metric">$1,864,497</div></div>
+  <div class="card"><div class="metric-label">总持仓市值</div><div class="metric">$1,047,954</div></div>
+  <div class="card"><div class="metric-label">现金余额</div><div class="metric neg">$-40,622</div></div>
 </div>
-
 <div class="card" style="margin-bottom:16px">
   <h2>业绩表现 (TWR)</h2>
   <div class="perf-grid">
-    <div class="perf-item"><div class="label">1日</div><div class="val pos">+0.71%</div></div>
-    <div class="perf-item"><div class="label">7日</div><div class="val pos">+0.48%</div></div>
-    <div class="perf-item"><div class="label">本月 (MTD)</div><div class="val pos">+1.61%</div></div>
-    <div class="perf-item"><div class="label">1个月</div><div class="val pos">+13.53%</div></div>
-    <div class="perf-item"><div class="label">今年至今 (YTD)</div><div class="val pos">+50.41%</div></div>
-    <div class="perf-item"><div class="label">近1年</div><div class="val pos">+59.16%</div></div>
+    <div class="perf-item"><div class="label">1日</div><div class="val pos">+2.63%</div></div>
+    <div class="perf-item"><div class="label">7日</div><div class="val pos">+2.39%</div></div>
+    <div class="perf-item"><div class="label">本月 (MTD)</div><div class="val pos">+3.55%</div></div>
+    <div class="perf-item"><div class="label">1个月</div><div class="val pos">+15.69%</div></div>
+    <div class="perf-item"><div class="label">今年至今 (YTD)</div><div class="val pos">+53.26%</div></div>
+    <div class="perf-item"><div class="label">近1年</div><div class="val pos">+62.19%</div></div>
   </div>
-  <p class="subtitle" style="margin:12px 0 0">业绩序列截至 2026-10-02 10:10 UTC，期末净值 $891,262；实时净资产 $891,426，略高于序列末点。</p>
+  <p class="subtitle" style="margin:12px 0 0">业绩序列截至 2026-10-02 14:09 UTC，期末净值 $908,201；实时净资产 $907,785，略低于序列末点。已实现盈亏 $-448。</p>
 </div>
-
 <div class="grid grid-2" style="margin-bottom:16px">
-  <div class="card">
-    <h2>资产类别分配（多头）</h2>
-    <div class="bar-row"><div class="bar-label">股票 Stocks</div><div class="bar-track"><div class="bar-fill" style="width:59.43%"></div></div><div class="bar-val">59.43% · $579,850</div></div>
-    <div class="bar-row"><div class="bar-label">ETF</div><div class="bar-track"><div class="bar-fill" style="width:33.02%"></div></div><div class="bar-val">33.02% · $322,156</div></div>
-    <div class="bar-row"><div class="bar-label">债券 Bonds</div><div class="bar-track"><div class="bar-fill" style="width:7.45%"></div></div><div class="bar-val">7.45% · $72,659</div></div>
-    <div class="bar-row"><div class="bar-label">期权 Options</div><div class="bar-track"><div class="bar-fill" style="width:0.09%"></div></div><div class="bar-val">0.09% · $835</div></div>
-    <div class="bar-row"><div class="bar-label">现金 Cash</div><div class="bar-track"><div class="bar-fill" style="width:0.02%"></div></div><div class="bar-val">0.02% · $181</div></div>
+  <div class="card"><h2>资产类别分配（多头）</h2>
+    <div class="bar-row"><div class="bar-label">股票 Stocks</div><div class="bar-track"><div class="bar-fill" style="width:60.09%;background:var(--accent)"></div></div><div class="bar-val">60.09% · $600,075</div></div>
+    <div class="bar-row"><div class="bar-label">ETF</div><div class="bar-track"><div class="bar-fill" style="width:32.47%;background:var(--accent)"></div></div><div class="bar-val">32.47% · $324,279</div></div>
+    <div class="bar-row"><div class="bar-label">债券 Bonds</div><div class="bar-track"><div class="bar-fill" style="width:7.32%;background:var(--accent)"></div></div><div class="bar-val">7.32% · $73,075</div></div>
+    <div class="bar-row"><div class="bar-label">期权 Options</div><div class="bar-track"><div class="bar-fill" style="width:0.10%;background:var(--accent)"></div></div><div class="bar-val">0.10% · $1,019</div></div>
+    <div class="bar-row"><div class="bar-label">现金 Cash</div><div class="bar-track"><div class="bar-fill" style="width:0.02%;background:var(--accent)"></div></div><div class="bar-val">0.02% · $181</div></div>
   </div>
-  <div class="card">
-    <h2>地区分配（多头）</h2>
-    <div class="bar-row"><div class="bar-label">北美 North America</div><div class="bar-track"><div class="bar-fill" style="width:89.26%"></div></div><div class="bar-val">89.26% · $871,855</div></div>
-    <div class="bar-row"><div class="bar-label">欧洲 Europe</div><div class="bar-track"><div class="bar-fill" style="width:7.56%"></div></div><div class="bar-val">7.56% · $73,841</div></div>
-    <div class="bar-row"><div class="bar-label">亚洲 Asia</div><div class="bar-track"><div class="bar-fill" style="width:3.18%"></div></div><div class="bar-val">3.18% · $31,092</div></div>
+  <div class="card"><h2>地区分配（多头）</h2>
+    <div class="bar-row"><div class="bar-label">北美 North America</div><div class="bar-track"><div class="bar-fill" style="width:89.44%;background:var(--accent)"></div></div><div class="bar-val">89.44% · $894,135</div></div>
+    <div class="bar-row"><div class="bar-label">欧洲 Europe</div><div class="bar-track"><div class="bar-fill" style="width:7.43%;background:var(--accent)"></div></div><div class="bar-val">7.43% · $74,261</div></div>
+    <div class="bar-row"><div class="bar-label">亚洲 Asia</div><div class="bar-track"><div class="bar-fill" style="width:3.14%;background:var(--accent)"></div></div><div class="bar-val">3.14% · $31,345</div></div>
   </div>
 </div>
-
-<div class="card" style="margin-bottom:16px">
-  <h2>行业分配（多头）</h2>
-    <div class="bar-row"><div class="bar-label">科技 Technology</div><div class="bar-track"><div class="bar-fill" style="width:33.02%"></div></div><div class="bar-val">33.02% · $322,532</div></div>
-    <div class="bar-row"><div class="bar-label">广泛 Broad</div><div class="bar-track"><div class="bar-fill" style="width:22.98%"></div></div><div class="bar-val">22.98% · $224,483</div></div>
-    <div class="bar-row"><div class="bar-label">电信 Telecomm</div><div class="bar-track"><div class="bar-fill" style="width:21.85%"></div></div><div class="bar-val">21.85% · $213,426</div></div>
-    <div class="bar-row"><div class="bar-label">工业 Industrial</div><div class="bar-track"><div class="bar-fill" style="width:8.86%"></div></div><div class="bar-val">8.86% · $86,539</div></div>
-    <div class="bar-row"><div class="bar-label">金融 Financials</div><div class="bar-track"><div class="bar-fill" style="width:7.44%"></div></div><div class="bar-val">7.44% · $72,659</div></div>
-    <div class="bar-row"><div class="bar-label">消费周期 Consumer Cyclicals</div><div class="bar-track"><div class="bar-fill" style="width:3.65%"></div></div><div class="bar-val">3.65% · $35,680</div></div>
-    <div class="bar-row"><div class="bar-label">医疗 Healthcare</div><div class="bar-track"><div class="bar-fill" style="width:2.07%"></div></div><div class="bar-val">2.07% · $20,182</div></div>
-    <div class="bar-row"><div class="bar-label">现金 Cash</div><div class="bar-track"><div class="bar-fill" style="width:0.13%"></div></div><div class="bar-val">0.13% · $1,287</div></div>
+<div class="card" style="margin-bottom:16px"><h2>行业分配（多头）</h2>
+    <div class="bar-row"><div class="bar-label">科技 Technology</div><div class="bar-track"><div class="bar-fill" style="width:34.32%;background:var(--accent)"></div></div><div class="bar-val">34.32% · $343,066</div></div>
+    <div class="bar-row"><div class="bar-label">广泛 Broad</div><div class="bar-track"><div class="bar-fill" style="width:22.61%;background:var(--accent)"></div></div><div class="bar-val">22.61% · $226,036</div></div>
+    <div class="bar-row"><div class="bar-label">电信 Telecomm</div><div class="bar-track"><div class="bar-fill" style="width:21.54%;background:var(--accent)"></div></div><div class="bar-val">21.54% · $215,373</div></div>
+    <div class="bar-row"><div class="bar-label">工业 Industrial</div><div class="bar-track"><div class="bar-fill" style="width:9.12%;background:var(--accent)"></div></div><div class="bar-val">9.12% · $91,184</div></div>
+    <div class="bar-row"><div class="bar-label">金融 Financials</div><div class="bar-track"><div class="bar-fill" style="width:7.31%;background:var(--accent)"></div></div><div class="bar-val">7.31% · $73,075</div></div>
+    <div class="bar-row"><div class="bar-label">消费周期 Consumer Cyclicals</div><div class="bar-track"><div class="bar-fill" style="width:3.72%;background:var(--accent)"></div></div><div class="bar-val">3.72% · $37,211</div></div>
+    <div class="bar-row"><div class="bar-label">医疗 Healthcare</div><div class="bar-track"><div class="bar-fill" style="width:1.25%;background:var(--accent)"></div></div><div class="bar-val">1.25% · $12,503</div></div>
+    <div class="bar-row"><div class="bar-label">现金 Cash</div><div class="bar-track"><div class="bar-fill" style="width:0.13%;background:var(--accent)"></div></div><div class="bar-val">0.13% · $1,291</div></div>
 </div>
-
 <div class="card" style="margin-bottom:16px">
   <h2>主要多头持仓（股票 / ETF / 债券）</h2>
-  <div style="overflow-x:auto">
-  <table>
+  <div style="overflow-x:auto"><table>
     <thead><tr><th>标的</th><th>数量</th><th>市价</th><th>市值</th><th>未实现盈亏</th><th>当日盈亏</th><th>类型</th></tr></thead>
     <tbody>
-<tr><td>META</td><td>200.13</td><td>729.46</td><td class="pos">$145,987</td><td class="pos">$20,864</td><td class="pos">$706</td><td>STK</td></tr>
-<tr><td>QQQ</td><td>162</td><td>747.09</td><td class="pos">$121,028</td><td class="pos">$39,243</td><td class="pos">$819</td><td>STK</td></tr>
-<tr><td>VOO</td><td>146.72</td><td>705.16</td><td class="pos">$103,460</td><td class="pos">$32,907</td><td class="pos">$412</td><td>STK</td></tr>
-<tr><td>RKLB</td><td>1,200</td><td>71.40</td><td class="pos">$85,680</td><td class="neg">-$2,821</td><td class="pos">$1,128</td><td>STK</td></tr>
-<tr><td>GOOG</td><td>200.12</td><td>337.05</td><td class="pos">$67,449</td><td class="pos">$6,249</td><td class="pos">$424</td><td>STK</td></tr>
-<tr><td>RABOBK 6.5% Perp</td><td>60</td><td>107.65</td><td class="pos">€64,588</td><td class="pos">€1,962</td><td class="neg">-€185</td><td>BOND</td></tr>
-<tr><td>SMH</td><td>100</td><td>625.73</td><td class="pos">$62,573</td><td class="pos">$35,123</td><td class="pos">$792</td><td>STK</td></tr>
-<tr><td>MSFT</td><td>100.20</td><td>515.73</td><td class="pos">$51,675</td><td class="pos">$12,978</td><td class="pos">$294</td><td>STK</td></tr>
-<tr><td>ECHO</td><td>550</td><td>88.24</td><td class="pos">$48,532</td><td class="neg">-$20,255</td><td class="neg">-$6</td><td>STK</td></tr>
-<tr><td>TSLA</td><td>100</td><td>356.77</td><td class="pos">$35,677</td><td class="pos">$4,430</td><td class="pos">$266</td><td>STK</td></tr>
-<tr><td>DRAM</td><td>560</td><td>62.66</td><td class="pos">$35,090</td><td class="neg">-$3,012</td><td class="pos">$353</td><td>STK</td></tr>
-<tr><td>LITE</td><td>30</td><td>1,054.50</td><td class="pos">$31,635</td><td class="pos">$3,450</td><td class="pos">$262</td><td>STK</td></tr>
-<tr><td>NVDA</td><td>111</td><td>233.57</td><td class="pos">$25,926</td><td class="pos">$1,814</td><td class="pos">$301</td><td>STK</td></tr>
-<tr><td>CRCL</td><td>300</td><td>84.76</td><td class="pos">$25,429</td><td class="pos">$2,629</td><td class="pos">$556</td><td>STK</td></tr>
-<tr><td>SE</td><td>200</td><td>94.88</td><td class="pos">$18,976</td><td class="neg">-$7,691</td><td class="neg">-$78</td><td>STK</td></tr>
-<tr><td>TSEM</td><td>50</td><td>244.20</td><td class="pos">$12,210</td><td class="neg">-$141</td><td class="pos">$145</td><td>STK</td></tr>
-<tr><td>AMD</td><td>15</td><td>623.80</td><td class="pos">$9,357</td><td class="pos">$213</td><td class="pos">$121</td><td>STK</td></tr>
-<tr><td>KOD</td><td>80</td><td>98.58</td><td class="pos">$7,886</td><td class="neg">-$75</td><td class="pos">$10</td><td>STK</td></tr>
-<tr><td>CDNA</td><td>100</td><td>66.36</td><td class="pos">$6,636</td><td class="neg">-$51</td><td class="pos">$13</td><td>STK</td></tr>
-<tr><td>TWST</td><td>30</td><td>189.92</td><td class="pos">$5,698</td><td class="pos">$253</td><td class="pos">$56</td><td>STK</td></tr>
-<tr><td>MU</td><td>1</td><td>1,108.00</td><td class="pos">$1,108</td><td class="pos">$170</td><td class="pos">$11</td><td>STK</td></tr>
-    </tbody>
-  </table>
-  </div>
+<tr><td>META</td><td>200.13</td><td>734.42</td><td class="pos">$146,980</td><td class="pos">$21,857</td><td class="pos">$1,699</td><td>STK</td></tr>
+<tr><td>QQQ</td><td>162</td><td>753.22</td><td class="pos">$122,022</td><td class="pos">$40,237</td><td class="pos">$1,813</td><td>STK</td></tr>
+<tr><td>VOO</td><td>146.72</td><td>709.05</td><td class="pos">$104,030</td><td class="pos">$33,478</td><td class="pos">$983</td><td>STK</td></tr>
+<tr><td>RKLB</td><td>1,200</td><td>75.01</td><td class="pos">$90,012</td><td class="pos">$1,511</td><td class="pos">$5,460</td><td>STK</td></tr>
+<tr><td>GOOG</td><td>200.12</td><td>341.65</td><td class="pos">$68,370</td><td class="pos">$7,170</td><td class="pos">$1,345</td><td>STK</td></tr>
+<tr><td>RABOBK 6.5% Perp</td><td>60</td><td>107.88</td><td class="pos">€64,727</td><td class="pos">€2,101</td><td class="neg">-€46</td><td>BOND</td></tr>
+<tr><td>SMH</td><td>100</td><td>634.39</td><td class="pos">$63,439</td><td class="pos">$35,989</td><td class="pos">$1,658</td><td>STK</td></tr>
+<tr><td>MSFT</td><td>100.20</td><td>518.35</td><td class="pos">$51,938</td><td class="pos">$13,241</td><td class="pos">$556</td><td>STK</td></tr>
+<tr><td>ECHO</td><td>550</td><td>91.10</td><td class="pos">$50,102</td><td class="neg">-$18,685</td><td class="pos">$1,565</td><td>STK</td></tr>
+<tr><td>TSLA</td><td>100</td><td>372.08</td><td class="pos">$37,208</td><td class="pos">$5,961</td><td class="pos">$1,797</td><td>STK</td></tr>
+<tr><td>DRAM</td><td>560</td><td>62.17</td><td class="pos">$34,818</td><td class="neg">-$3,283</td><td class="pos">$81</td><td>STK</td></tr>
+<tr><td>LITE</td><td>30</td><td>1,068.60</td><td class="pos">$32,058</td><td class="pos">$3,873</td><td class="pos">$685</td><td>STK</td></tr>
+<tr><td>NVDA</td><td>111.11</td><td>236.57</td><td class="pos">$26,285</td><td class="pos">$2,148</td><td class="pos">$630</td><td>STK</td></tr>
+<tr><td>CRCL</td><td>300</td><td>85.64</td><td class="pos">$25,692</td><td class="pos">$2,892</td><td class="pos">$819</td><td>STK</td></tr>
+<tr><td>SE</td><td>200</td><td>95.00</td><td class="pos">$18,999</td><td class="neg">-$7,668</td><td class="neg">-$55</td><td>STK</td></tr>
+<tr><td>TSEM</td><td>50</td><td>246.64</td><td class="pos">$12,332</td><td class="neg">-$19</td><td class="pos">$267</td><td>STK</td></tr>
+<tr><td>SMTC</td><td>50</td><td>199.29</td><td class="pos">$9,965</td><td class="neg">-$8</td><td class="neg">-$8</td><td>STK</td></tr>
+<tr><td>AMD</td><td>15</td><td>636.52</td><td class="pos">$9,548</td><td class="pos">$404</td><td class="pos">$312</td><td>STK</td></tr>
+<tr><td>HPE</td><td>100</td><td>68.11</td><td class="pos">$6,811</td><td class="neg">-$39</td><td class="neg">-$39</td><td>STK</td></tr>
+<tr><td>CDNA</td><td>100</td><td>67.77</td><td class="pos">$6,777</td><td class="pos">$90</td><td class="pos">$154</td><td>STK</td></tr>
+<tr><td>TWST</td><td>30</td><td>190.73</td><td class="pos">$5,722</td><td class="pos">$277</td><td class="pos">$80</td><td>STK</td></tr>
+<tr><td>MU</td><td>1</td><td>1,088.67</td><td class="pos">$1,089</td><td class="pos">$151</td><td class="neg">-$9</td><td>STK</td></tr>
+    </tbody></table></div>
 </div>
-
 <div class="grid grid-2" style="margin-bottom:16px">
-  <div class="card">
-    <h2>保证金与风险</h2>
+  <div class="card"><h2>保证金与风险</h2>
     <table>
-      <tr><td>初始保证金</td><td>$482,777</td></tr>
-      <tr><td>维持保证金</td><td>$470,135</td></tr>
-      <tr><td>超额流动性</td><td class="pos">$469,934</td></tr>
+      <tr><td>初始保证金</td><td>$488,693</td></tr>
+      <tr><td>维持保证金</td><td>$475,754</td></tr>
+      <tr><td>超额流动性</td><td class="pos">$477,763</td></tr>
       <tr><td>股息</td><td>$106</td></tr>
       <tr><td>EUR 现金</td><td>€975</td></tr>
-      <tr><td>USD 现金</td><td class="neg">$-32,388</td></tr>
+      <tr><td>USD 现金</td><td class="neg">$-41,722</td></tr>
     </table>
   </div>
-  <div class="card">
-    <h2>空头分配（金融工具）</h2>
-    <div class="bar-row"><div class="bar-label">期权 Options</div><div class="bar-track"><div class="bar-fill" style="width:58.73%;background:var(--red)"></div></div><div class="bar-val">58.73% · -$49,588</div></div>
-    <div class="bar-row"><div class="bar-label">现金 Cash</div><div class="bar-track"><div class="bar-fill" style="width:37.28%;background:var(--red)"></div></div><div class="bar-val">37.28% · -$31,474</div></div>
-    <div class="bar-row"><div class="bar-label">期货期权 FOP</div><div class="bar-track"><div class="bar-fill" style="width:3.99%;background:var(--red)"></div></div><div class="bar-val">3.99% · -$3,367</div></div>
+  <div class="card"><h2>空头分配（金融工具）</h2>
+    <div class="bar-row"><div class="bar-label">期权 Options</div><div class="bar-track"><div class="bar-fill" style="width:51.67%;background:var(--red)"></div></div><div class="bar-val">51.67% · -$46,710</div></div>
+    <div class="bar-row"><div class="bar-label">现金 Cash</div><div class="bar-track"><div class="bar-fill" style="width:45.14%;background:var(--red)"></div></div><div class="bar-val">45.14% · -$40,804</div></div>
+    <div class="bar-row"><div class="bar-label">期货期权 FOP</div><div class="bar-track"><div class="bar-fill" style="width:3.19%;background:var(--red)"></div></div><div class="bar-val">3.19% · -$2,883</div></div>
   </div>
 </div>
-
+<div class="card" style="margin-bottom:16px"><h2>国家分配（多头）</h2>
+    <div class="bar-row"><div class="bar-label">美国 United States</div><div class="bar-track"><div class="bar-fill" style="width:89.44%;background:var(--accent)"></div></div><div class="bar-val">89.44% · $894,135</div></div>
+    <div class="bar-row"><div class="bar-label">荷兰 Netherlands</div><div class="bar-track"><div class="bar-fill" style="width:7.31%;background:var(--accent)"></div></div><div class="bar-val">7.31% · $73,075</div></div>
+    <div class="bar-row"><div class="bar-label">新加坡 Singapore</div><div class="bar-track"><div class="bar-fill" style="width:1.90%;background:var(--accent)"></div></div><div class="bar-val">1.90% · $19,001</div></div>
+    <div class="bar-row"><div class="bar-label">以色列 Israel</div><div class="bar-track"><div class="bar-fill" style="width:1.23%;background:var(--accent)"></div></div><div class="bar-val">1.23% · $12,343</div></div>
+    <div class="bar-row"><div class="bar-label">欧元区 Eurozone</div><div class="bar-track"><div class="bar-fill" style="width:0.12%;background:var(--accent)"></div></div><div class="bar-val">0.12% · $1,186</div></div>
+</div>
 <footer>
   数据来源：Interactive Brokers · 仅供个人参考 · 不构成投资建议<br>
   公开配置页 · 不含逐笔期权合约 · 2026-10-02
